@@ -19,7 +19,7 @@ class _GetGiaoDien_RankOffState extends State<GetGiaoDien_RankOff> {
               image: AssetImage("images/h3.jpg"), fit: BoxFit.cover),
         ),
         // child: Stack(children: [
-        //   Container(
+        //   Container(ssss
         //     child: const Text("High score"),
         //   ),
         //   Container(
