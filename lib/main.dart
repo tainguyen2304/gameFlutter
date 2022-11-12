@@ -12,6 +12,7 @@ import 'package:game/data/dataoff.dart';
 import 'package/giao_dien_chotran.dart';
 import 'package/giao_dien_singup.dart';
 import 'package/giao_dien_username.dart';
+import 'package/chooseAvatar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,17 +30,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       // home: GioiThieu(),
-      home: DangNhap(),
+      // home: ChooseAvatar(),
+      // home: DangNhap(),
       // home: Chance_Password(),
       // home: GiaoDien_Email(),
-      //home: GiaoDienOTP(),
-      //home: GiaoDienBangTL(),
-      //home: Setting(),
-      //home: SetGiaoDien_Off(),
-      //home: Giaodien_ChoTran(),
-      //home:Singup() ,
-      //home: GiaoDien_Username(),
-      //  home: GiaoDien_chienthang(),
+      // home: GiaoDienOTP(),
+      // home: GiaoDienBangTL(),
+      // home: Setting(),
+      // home: SetGiaoDien_Off(),
+      // home: Giaodien_ChoTran(),
+      // home: GiaoDien_Username(),
+      home: GiaoDien_chienthang(),
     );
   }
 }
