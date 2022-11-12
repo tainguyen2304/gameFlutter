@@ -52,7 +52,7 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                   ),
                 ],
               ),
-              Text(
+              const Text(
                 'WHO IS STUPID',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -61,17 +61,27 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                     fontFamily: 'MyFont'),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
                     onPressed: () {},
                     icon: Image.asset("images/help.png"),
                     iconSize: 80,
                   ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 5.0, 0),
+                    child: Text(
+                      'LV1',
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                  )
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
+              // SizedBox(
+              //   height: 20,
+              // ),
               LinearPercentIndicator(
                 animation: true,
                 lineHeight: 20.0,
@@ -80,6 +90,145 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                 center: const Text("10s"),
                 progressColor: Colors.black38,
               ),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                      Color.fromARGB(255, 65, 64, 64).withOpacity(0.8),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                    ),
+                  ),
+                  onPressed: () => {},
+                  child: const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      '1 + 1 =',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                    'CHOOSE YOUR ANSWER:',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll<Color>(
+                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
+                      onPressed: () => {},
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          '1',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll<Color>(
+                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
+                      onPressed: () => {},
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          '2',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll<Color>(
+                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
+                      onPressed: () => {},
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          '3',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll<Color>(
+                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
+                      onPressed: () => {},
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          '4',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

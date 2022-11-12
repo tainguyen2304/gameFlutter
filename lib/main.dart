@@ -13,6 +13,8 @@ import 'package/giao_dien_chotran.dart';
 import 'package/giao_dien_singup.dart';
 import 'package/giao_dien_username.dart';
 import 'package/chooseAvatar.dart';
+import 'package/giao_dien_menu_play.dart';
+import 'package/giao_dien_chotran_online.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,12 +37,14 @@ class MyApp extends StatelessWidget {
       // home: Chance_Password(),
       // home: GiaoDien_Email(),
       // home: GiaoDienOTP(),
-      // home: GiaoDienBangTL(),
+      home: GiaoDienBangTL(),
       // home: Setting(),
       // home: SetGiaoDien_Off(),
+      // home: MenuPlay(),
       // home: Giaodien_ChoTran(),
+      // home: Giaodien_ChoTran_Online(),
       // home: GiaoDien_Username(),
-      home: GiaoDien_chienthang(),
+      // home: GiaoDien_chienthang(),
     );
   }
 }
