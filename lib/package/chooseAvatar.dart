@@ -1,28 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
-      title: 'Flutter Demo',
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class ChooseAvatar extends StatelessWidget {
+  const ChooseAvatar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +17,9 @@ class MyHomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 30.0, 0, 20.0),
               child: Image.asset(
-                "images/logowhoIsStupid.png",
+                "images/icon1.png",
                 fit: BoxFit.cover,
-                width: 200,
+                width: 100,
               ),
             ),
             Padding(
