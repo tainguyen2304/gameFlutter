@@ -1,57 +1,60 @@
 import 'package:flutter/material.dart';
+import 'Login.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class GioiThieu extends StatefulWidget {
+  const GioiThieu({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<GioiThieu> createState() => _GioiThieuState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _GioiThieuState extends State<GioiThieu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("images/backgroundGeneral.png"),
-              fit: BoxFit.cover),
+              image: AssetImage("images/h2.jpg"), fit: BoxFit.cover),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                SizedBox(
-                  height: 25,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                    const Color.fromARGB(255, 247, 224, 224).withOpacity(0.0),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                  ),
                 ),
-                Text(
-                  "WHO IS STUPID",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()),
+                  );
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      "WHO IS STUPID",
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

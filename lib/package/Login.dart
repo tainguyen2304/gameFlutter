@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
-import 'giao_dien_singup.dart';
+import 'Signup.dart';
+import 'ChooseAvatar.dart';
 
-class DangNhap extends StatefulWidget {
-  const DangNhap({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<DangNhap> createState() => _DangNhapState();
+  State<Login> createState() => _LoginState();
 }
 
-class _DangNhapState extends State<DangNhap> {
+class _LoginState extends State<Login> {
+  TextEditingController email = new TextEditingController(text: "");
+  TextEditingController psw = new TextEditingController(text: "");
+
+  void _login() {
+    if (email.text != "" || psw.text != "") {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ChooseAvatar()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +54,12 @@ class _DangNhapState extends State<DangNhap> {
                         style: TextStyle(color: Colors.black54, fontSize: 25),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(10),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
                       child: TextField(
-                        style: TextStyle(color: Colors.black54),
-                        decoration: InputDecoration(
+                        controller: email,
+                        style: const TextStyle(color: Colors.black54),
+                        decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(width: 1, color: Colors.black54),
@@ -54,12 +69,13 @@ class _DangNhapState extends State<DangNhap> {
                             hintStyle: TextStyle(color: Colors.black54)),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: TextField(
+                        controller: psw,
                         obscureText: true,
-                        style: TextStyle(color: Colors.black54),
-                        decoration: InputDecoration(
+                        style: const TextStyle(color: Colors.black54),
+                        decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(width: 1, color: Colors.black54),
@@ -107,11 +123,14 @@ class _DangNhapState extends State<DangNhap> {
                                     borderRadius: BorderRadius.circular(20.0)),
                               ),
                             ),
-                            onPressed: () => {},
+                            onPressed: _login,
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                               child: Text(
                                 "Log In",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),

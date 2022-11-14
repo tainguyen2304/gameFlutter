@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'InfomationDetail.dart';
 
-class GiaoDien_Username extends StatefulWidget {
-  const GiaoDien_Username({super.key});
-
+class HomePage extends StatefulWidget {
+  HomePage({super.key, required this.nickName, required this.avatar});
+  final String nickName;
+  final String avatar;
   @override
-  State<GiaoDien_Username> createState() => _GiaoDien_UsernameState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _GiaoDien_UsernameState extends State<GiaoDien_Username> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,17 +19,15 @@ class _GiaoDien_UsernameState extends State<GiaoDien_Username> {
               image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   margin: EdgeInsets.only(bottom: 100),
                   height: 100,
                   child: Image.asset(
-                    "images/icon2.png",
+                    widget.avatar,
                     height: 100,
                   ),
                 ),
@@ -36,13 +36,13 @@ class _GiaoDien_UsernameState extends State<GiaoDien_Username> {
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Username',
-                        style: TextStyle(
+                      Text(
+                        widget.nickName,
+                        style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       const Text(
-                        'LV.120',
+                        'LV.0',
                         style: TextStyle(fontSize: 15),
                       )
                     ],
@@ -73,7 +73,17 @@ class _GiaoDien_UsernameState extends State<GiaoDien_Username> {
                       backgroundColor: Colors.white,
                       padding: const EdgeInsets.all(25),
                       side: BorderSide(width: 2, color: Colors.black)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InfoDetail(
+                              // nickName: nickName.text,
+                              // avatar: avatar,
+                              )),
+                    );
+                  },
                   child: Text("Player Information")),
             ),
             Padding(
@@ -98,18 +108,6 @@ class _GiaoDien_UsernameState extends State<GiaoDien_Username> {
                   onPressed: () {},
                   child: Text("Nạp tiền")),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset("images/settings.png"),
-                  iconSize: 50,
-                ),
-              ],
-            )
           ],
         ),
       ),
