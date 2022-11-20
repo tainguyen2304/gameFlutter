@@ -34,15 +34,15 @@ class _LoginState extends State<Login> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30.0, 0, 20.0),
+              padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 0),
               child: Image.asset(
                 "images/icon1.png",
                 fit: BoxFit.cover,
-                width: 200,
+                width: 60,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(4),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -51,7 +51,10 @@ class _LoginState extends State<Login> {
                       padding: EdgeInsets.all(10),
                       child: Text(
                         'Log In',
-                        style: TextStyle(color: Colors.black54, fontSize: 25),
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
@@ -96,7 +99,7 @@ class _LoginState extends State<Login> {
                             'Forgot Password?',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
-                              color: Color.fromARGB(137, 243, 217, 217),
+                              color: Color.fromARGB(136, 42, 42, 42),
                               fontSize: 15,
                             ),
                           ),

@@ -31,9 +31,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
         context,
         MaterialPageRoute(
             builder: (context) => HomePage(
-                  nickName: nickName.text,
-                  avatar: avatar,
-                )),
+                nickName: nickName.text, avatar: avatar, age: age.text)),
       );
     }
   }
@@ -50,7 +48,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30.0, 0, 0.0),
+              padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),
               child: Image.asset(
                 "images/icon1.png",
                 fit: BoxFit.cover,
@@ -64,12 +62,12 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                   const Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'Log In',
+                      'Infordetail',
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(4),
                     child: TextField(
                       controller: nickName,
                       style: const TextStyle(color: Colors.white),
@@ -80,14 +78,15 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                           ),
                           border: OutlineInputBorder(),
                           hintText: 'Enter your nick name',
-                          hintStyle: TextStyle(color: Colors.white)),
+                          hintStyle:
+                              TextStyle(color: Colors.white, fontSize: 12)),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(4),
                     child: TextField(
                       controller: age,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                       decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -98,35 +97,9 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                           hintStyle: TextStyle(color: Colors.white)),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.all(10.0),
-                      //   child: ElevatedButton(
-                      //     style: ButtonStyle(
-                      //       backgroundColor: MaterialStatePropertyAll<Color>(
-                      //         const Color.fromARGB(255, 61, 46, 38)
-                      //             .withOpacity(0.8),
-                      //       ),
-                      //       shape: MaterialStateProperty.all(
-                      //         RoundedRectangleBorder(
-                      //             borderRadius: BorderRadius.circular(20.0)),
-                      //       ),
-                      //     ),
-                      //     onPressed: () => {Navigator.pop(context)},
-                      //     child: const Padding(
-                      //       padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
-                      //       child: Text(
-                      //         "Back",
-                      //         style: TextStyle(color: Colors.white),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Padding(
                         padding: EdgeInsets.zero,
                         child: ElevatedButton(
@@ -142,7 +115,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                           ),
                           onPressed: _done,
                           child: const Padding(
-                            padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                            padding: EdgeInsets.all(10),
                             child: Text(
                               "Done",
                               style: TextStyle(
@@ -154,9 +127,6 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
@@ -166,9 +136,6 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       )
                     ],
-                  ),
-                  const SizedBox(
-                    height: 10,
                   ),
                   Wrap(
                       children: avatarImages
@@ -188,7 +155,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                                     });
                                   },
                                   icon: Image.asset(item.image),
-                                  iconSize: 100,
+                                  iconSize: 60,
                                 ),
                               ))
                           .toList()),

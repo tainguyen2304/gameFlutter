@@ -1,3 +1,7 @@
+import 'package:game/package/HomePage.dart';
+import 'package:game/package/Setting.dart';
+import 'package:game/package/ChangePassword.dart';
+
 import 'package/Welcome.dart';
 import 'package:flutter/material.dart';
 import './package/InfomationDetail.dart';
@@ -12,13 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      // home: const GioiThieu(),
-      home: const InfoDetail(),
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: const GioiThieu());
   }
 }

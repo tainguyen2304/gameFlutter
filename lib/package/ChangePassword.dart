@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-class Chance_Password extends StatefulWidget {
-  const Chance_Password({super.key});
+
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({super.key});
 
   @override
-  State<Chance_Password> createState() => _Chance_PasswordState();
+  State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _Chance_PasswordState extends State<Chance_Password> {
+class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              const SizedBox(
-                height: 110,
-              ),
               const Text(
-                'Chance Password',
+                'Change Password',
                 style: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
                   fontFamily: 'Raleway',
                 ),
               ),
@@ -37,9 +35,9 @@ class _Chance_PasswordState extends State<Chance_Password> {
               TextFormField(
                 obscureText: true,
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Old Password',
-                ),
+                    border: UnderlineInputBorder(),
+                    labelText: 'Old Password',
+                    labelStyle: TextStyle(fontWeight: FontWeight.bold)),
               ),
               const SizedBox(
                 height: 50,
@@ -47,9 +45,9 @@ class _Chance_PasswordState extends State<Chance_Password> {
               TextFormField(
                 obscureText: true,
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'New Password',
-                ),
+                    border: UnderlineInputBorder(),
+                    labelText: 'New Password',
+                    labelStyle: TextStyle(fontWeight: FontWeight.bold)),
               ),
               const SizedBox(
                 height: 50,
@@ -57,9 +55,9 @@ class _Chance_PasswordState extends State<Chance_Password> {
               TextFormField(
                 obscureText: true,
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Confirm password',
-                ),
+                    border: UnderlineInputBorder(),
+                    labelText: 'Confirm password',
+                    labelStyle: TextStyle(fontWeight: FontWeight.bold)),
               ),
               SizedBox(
                 height: 60,
@@ -80,11 +78,12 @@ class _Chance_PasswordState extends State<Chance_Password> {
                               borderRadius: BorderRadius.circular(20.0)),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () => {Navigator.pop(context)},
                       child: const Padding(
                         padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                         child: Text(
                           "Back",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -107,6 +106,7 @@ class _Chance_PasswordState extends State<Chance_Password> {
                         padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                         child: Text(
                           "Accept",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import './HomePage.dart';
 
 class InfoDetail extends StatefulWidget {
-  const InfoDetail({super.key});
+  InfoDetail(
+      {super.key,
+      required this.nickName,
+      required this.avatar,
+      required this.age});
+  final String nickName;
+  final String avatar;
+  final String age;
 
   @override
   State<InfoDetail> createState() => _InfoDetailState();
@@ -29,7 +37,7 @@ class _InfoDetailState extends State<InfoDetail> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 30.0, 0, 10.0),
               child: Image.asset(
-                "images/avatar1.png",
+                widget.avatar,
                 fit: BoxFit.cover,
                 width: 80,
               ),
@@ -40,7 +48,7 @@ class _InfoDetailState extends State<InfoDetail> {
               decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: Colors.black))),
               child: Text(
-                'Nick name: Tai',
+                'Nick name: ${widget.nickName}',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
@@ -60,7 +68,7 @@ class _InfoDetailState extends State<InfoDetail> {
               decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: Colors.black))),
               child: Text(
-                'Age: 16',
+                'Age: ${widget.age}',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
@@ -93,14 +101,21 @@ class _InfoDetailState extends State<InfoDetail> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  '1200',
+                                const Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 10.0, 0),
+                                  child: Text(
+                                    '1200',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
                                 ),
                                 Image.asset(
                                   "images/iconHighScore.png",
                                   fit: BoxFit.cover,
-                                  width: 10,
+                                  width: 20,
                                 ),
                               ],
                             ),
@@ -108,7 +123,7 @@ class _InfoDetailState extends State<InfoDetail> {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 1 / 2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,7 +135,28 @@ class _InfoDetailState extends State<InfoDetail> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text('Vàng')
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 10.0, 0),
+                                  child: Text(
+                                    'Vàng',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                                Image.asset(
+                                  "images/rankVang.png",
+                                  fit: BoxFit.cover,
+                                  width: 20,
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -145,9 +181,19 @@ class _InfoDetailState extends State<InfoDetail> {
                             borderRadius: BorderRadius.circular(30.0)),
                       ),
                     ),
-                    onPressed: () => {},
+                    onPressed: () {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomePage(
+                                nickName: widget.nickName,
+                                avatar: widget.avatar,
+                                age: widget.age)),
+                      );
+                    },
                     child: const Padding(
-                      padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
+                      padding: EdgeInsets.fromLTRB(60, 14, 60, 14),
                       child: Text(
                         "Back",
                         style: TextStyle(

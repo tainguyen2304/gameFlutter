@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:game/package/Setting.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key, required this.nickName, required this.avatar});
+  HomePage(
+      {super.key,
+      required this.nickName,
+      required this.avatar,
+      required this.age});
   final String nickName;
   final String avatar;
+  final String age;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -14,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
@@ -22,39 +29,42 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 100),
-                  height: 100,
-                  child: Image.asset(
-                    widget.avatar,
-                    height: 100,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 110),
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.nickName,
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                      Image.asset(
+                        widget.avatar,
+                        height: 100,
                       ),
-                      const Text(
-                        'LV.0',
-                        style: TextStyle(fontSize: 15),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
+                      Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.nickName,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const Text(
+                            'LV.0',
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ])),
                 Container(
-                  margin: EdgeInsets.only(bottom: 150),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Setting()),
+                      );
+                    },
                     icon: Image.asset("images/settings.png"),
                     iconSize: 50,
                   ),
@@ -79,8 +89,9 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => InfoDetail(
-                              // nickName: nickName.text,
-                              // avatar: avatar,
+                                nickName: widget.nickName,
+                                avatar: widget.avatar,
+                                age: widget.age,
                               )),
                     );
                   },
