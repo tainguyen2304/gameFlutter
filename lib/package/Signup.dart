@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game/package/dangnhap.dart';
+import 'package:game/package/Login.dart';
 
 class Singup extends StatefulWidget {
   const Singup({super.key});
@@ -29,63 +29,82 @@ class _SingupState extends State<Singup> {
               const Padding(
                 padding: EdgeInsets.fromLTRB(50, 8, 50, 8),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                      hintText: "Name or Email ", labelText: "Name or Email:"),
+                      hintText: "Enter Name",
+                      labelText: "Name",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 200, 199, 199))),
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   obscureText: true,
                   decoration: InputDecoration(
-                      hintText: "Password", labelText: "Password:"),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      hintText: "Confirm Password ",
-                      labelText: "Confirm Password:"),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
-                child: TextField(
-                  decoration:
-                      InputDecoration(hintText: "Email", labelText: "Email:"),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  backgroundColor: Colors.white,
-                  padding: const EdgeInsets.fromLTRB(45, 25, 45, 25),
-                  side: const BorderSide(
-                    color: Color.fromARGB(255, 54, 60, 60),
-                    width: 2.0,
+                    hintText: "Enter Password",
+                    labelText: "Password:",
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(255, 200, 199, 199)),
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
                 ),
-                onPressed: () {},
-                child: const Text("Sign Up"),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Enter Confirm Password ",
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(255, 200, 199, 199)),
+                    labelStyle: TextStyle(color: Colors.white),
+                    labelText: "Confirm Password:",
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: "Enter Email",
+                    labelText: "Email:",
+                    labelStyle: TextStyle(color: Colors.white),
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(255, 200, 199, 199)),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 30,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: Container(),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      backgroundColor: Colors.white,
+                      padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 54, 60, 60),
+                        width: 2.0,
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      "Sign Up",
+                    ),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
                       side: const BorderSide(
                         color: Color.fromARGB(255, 54, 60, 60),
                         width: 2.0,
@@ -94,7 +113,9 @@ class _SingupState extends State<Singup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("Back Home"),
+                    child: const Text(
+                      "Login",
+                    ),
                   ),
                 ],
               ),
