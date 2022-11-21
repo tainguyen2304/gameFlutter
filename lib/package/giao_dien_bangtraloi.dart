@@ -9,6 +9,13 @@ class GiaoDienBangTL extends StatefulWidget {
 }
 
 class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
+  Color _color = Color.fromARGB(255, 101, 103, 101).withOpacity(0.8);
+  void _change() {
+    setState(() {
+      _color = Colors.green;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +72,12 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      var showDialog2 = showDialog(
+                        context: context,
+                        builder: (context) => QuyenTroGiup(),
+                      );
+                    },
                     icon: Image.asset("images/help.png"),
                     iconSize: 80,
                   ),
@@ -79,9 +91,6 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                   )
                 ],
               ),
-              // SizedBox(
-              //   height: 20,
-              // ),
               LinearPercentIndicator(
                 animation: true,
                 lineHeight: 20.0,
@@ -142,7 +151,12 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                               borderRadius: BorderRadius.circular(10.0)),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () {
+                        var showDialog2 = showDialog(
+                          context: context,
+                          builder: (context) => QuyenTroGiup1(),
+                        );
+                      },
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
@@ -159,15 +173,19 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(
-                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
-                        ),
+                        backgroundColor:
+                            MaterialStatePropertyAll<Color>(_color),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () {
+                        var showDialog2 = showDialog(
+                          context: context,
+                          builder: (context) => QuyenTroGiup1(),
+                        );
+                      },
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
@@ -192,7 +210,12 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                               borderRadius: BorderRadius.circular(10.0)),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () {
+                        var showDialog2 = showDialog(
+                          context: context,
+                          builder: (context) => QuyenTroGiup1(),
+                        );
+                      },
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
@@ -217,7 +240,12 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                               borderRadius: BorderRadius.circular(10.0)),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () {
+                        var showDialog2 = showDialog(
+                          context: context,
+                          builder: (context) => QuyenTroGiup1(),
+                        );
+                      },
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
@@ -235,4 +263,58 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
       ),
     );
   }
+
+  AlertDialog QuyenTroGiup() {
+    return AlertDialog(
+      backgroundColor: Colors.white70.withOpacity(0.75),
+      shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset("images/icon7.png"),
+                  iconSize: 100,
+                ),
+                // Divider(
+                //   color: Colors.black,
+                // ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset("images/passed.png"),
+                  iconSize: 100,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset("images/settings.png"),
+                  iconSize: 100,
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+AlertDialog QuyenTroGiup1() {
+  return AlertDialog(
+    title: Text("Are You Sure"),
+    backgroundColor: Color.fromARGB(255, 126, 147, 184).withOpacity(0.75),
+    shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(50)),
+    actions: [
+      TextButton(
+        onPressed: () {},
+        child: Text('Yes'),
+      ),
+      TextButton(
+        onPressed: () {},
+        child: Text('No'),
+      ),
+    ],
+  );
 }

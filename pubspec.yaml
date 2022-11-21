@@ -92,6 +92,8 @@ flutter:
     - images/avatar4.png
     - images/avatar5.png
     - images/avatar6.png
+    - images/passed.png
+    - images/icon7.png
     - images/iconHighScore.png
     - images/rankBk.png
     - images/rankSliver.png
