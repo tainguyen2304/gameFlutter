@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'Login.dart';
 
-class GioiThieu extends StatefulWidget {
-  const GioiThieu({super.key});
+class Welcome extends StatefulWidget {
+  const Welcome({super.key});
 
   @override
-  State<GioiThieu> createState() => _GioiThieuState();
+  State<Welcome> createState() => _WelcomeState();
 }
 
-class _GioiThieuState extends State<GioiThieu> {
+class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,8 +10,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController email = new TextEditingController(text: "");
-  TextEditingController psw = new TextEditingController(text: "");
+  TextEditingController email = TextEditingController(text: "");
+  TextEditingController psw = TextEditingController(text: "");
 
   void _login() {
     if (email.text != "" || psw.text != "") {

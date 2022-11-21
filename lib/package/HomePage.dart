@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game/package/Setting.dart';
+import 'package:game/package/drawerMenu.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,52 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Image.asset(
+                    widget.avatar,
+                    height: 60,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        widget.nickName,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const Text(
+                        'LV.0',
+                        style: TextStyle(fontSize: 15),
+                      )
+                    ],
+                  ),
+                ])),
+            Container(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Setting()),
+                  );
+                },
+                icon: Image.asset("images/settings.png"),
+                iconSize: 30,
+              ),
+            ),
+          ],
+        ),
+      ),
+      drawer: const ListFriend(),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -28,49 +74,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      Image.asset(
-                        widget.avatar,
-                        height: 100,
-                      ),
-                      Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.nickName,
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          const Text(
-                            'LV.0',
-                            style: TextStyle(fontSize: 15),
-                          )
-                        ],
-                      ),
-                    ])),
-                Container(
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Setting()),
-                      );
-                    },
-                    icon: Image.asset("images/settings.png"),
-                    iconSize: 50,
-                  ),
-                ),
-              ],
-            ),
             Image.asset("images/icon1.png"),
             const SizedBox(
               height: 2.0,

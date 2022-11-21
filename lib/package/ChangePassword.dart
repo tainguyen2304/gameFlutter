@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game/package/Setting.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -78,7 +79,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                               borderRadius: BorderRadius.circular(20.0)),
                         ),
                       ),
-                      onPressed: () => {Navigator.pop(context)},
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Setting()));
+                      },
                       child: const Padding(
                         padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                         child: Text(
@@ -89,7 +96,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll<Color>(
