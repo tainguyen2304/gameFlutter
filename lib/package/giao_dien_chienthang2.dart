@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GiaoDien_chienthang extends StatefulWidget {
-  const GiaoDien_chienthang({super.key});
+class GiaoDien_Won extends StatefulWidget {
+  const GiaoDien_Won({super.key});
 
   @override
-  State<GiaoDien_chienthang> createState() => _GiaoDien_chienthangState();
+  State<GiaoDien_Won> createState() => _GiaoDien_WonState();
 }
 
-class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
+class _GiaoDien_WonState extends State<GiaoDien_Won> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +49,7 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 50,
                     ),
                     IconButton(
@@ -67,18 +67,48 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                         borderRadius: BorderRadius.circular(20),
                         color: Color.fromARGB(255, 65, 49, 3)),
                     child: Center(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: const StadiumBorder(),
-                              backgroundColor: Color.fromARGB(255, 83, 88, 93),
-                              padding:
-                                  const EdgeInsets.fromLTRB(50, 30, 50, 30),
-                              side: BorderSide(width: 2, color: Colors.black)),
-                          onPressed: () {},
-                          child: Text("Play Again")),
-                    ),
+                        child: Opacity(
+                      opacity: 0.80,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 246, 203, 217)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 50,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 50,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 50,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
                   ),
                 ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                        side: BorderSide(width: 2, color: Colors.black)),
+                    onPressed: () {},
+                    child: Text(
+                      "Continue",
+                      style: TextStyle(fontSize: 25),
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
