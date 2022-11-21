@@ -78,9 +78,6 @@ flutter:
     - images/Mask Group 18.png
     - images/Mask Group 19.png
     - images/Mask Group 20.png
-    - images/badge.png
-    - images/star.png
-    - images/star (1).png
     - images/swords.png
     - images/king.png
     - images/h1.jpg
@@ -97,7 +94,11 @@ flutter:
     - images/avatar6.png
     - images/passed.png
     - images/icon7.png
-
+    - images/iconHighScore.png
+    - images/rankBk.png
+    - images/rankSliver.png
+    - images/rankVang.png
+    - images/information.png
 
   #   - images/a_dot_ham.jpeg
 
