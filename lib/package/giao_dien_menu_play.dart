@@ -1,4 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../drawer/my_header_drawer.dart';
 
 class MenuPlay extends StatefulWidget {
   const MenuPlay({super.key});
@@ -11,6 +14,10 @@ class _MenuPlayState extends State<MenuPlay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Text('Menu Play'),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -19,52 +26,7 @@ class _MenuPlayState extends State<MenuPlay> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 100),
-                  height: 100,
-                  child: Image.asset(
-                    "images/icon2.png",
-                    height: 100,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 110),
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Username',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        'LV.120',
-                        style: TextStyle(fontSize: 15),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 150),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Image.asset("images/settings.png"),
-                    iconSize: 50,
-                  ),
-                ),
-              ],
-            ),
             Image.asset("images/icon1.png"),
-            const SizedBox(
-              height: 2.0,
-            ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
@@ -124,6 +86,23 @@ class _MenuPlayState extends State<MenuPlay> {
           ],
         ),
       ),
+      drawer: Drawer(
+        child: SingleChildScrollView(
+          dragStartBehavior: DragStartBehavior.down,
+          child: Container(
+            child: Column(
+              children: [
+                MyHeaderDrawer(),
+                MyDrawerList(),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
+}
+
+Widget MyDrawerList() {
+  return Container();
 }

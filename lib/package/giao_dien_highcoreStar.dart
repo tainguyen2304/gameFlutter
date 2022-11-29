@@ -50,7 +50,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:
-                                            BorderSide(color: Colors.black))),
+                                            BorderSide(color: Colors.black),)),
                                 child: Row(
                                   children: [
                                     Text("Thái Nguyễn",
