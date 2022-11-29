@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GiaoDien_HighCore_Star extends StatefulWidget {
-  const GiaoDien_HighCore_Star({super.key});
+class HighScoreStart extends StatefulWidget {
+  const HighScoreStart({super.key});
 
   @override
-  State<GiaoDien_HighCore_Star> createState() => _GiaoDien_HighCore_StarState();
+  State<HighScoreStart> createState() => _HighScoreStartState();
 }
 
-class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
+class _HighScoreStartState extends State<HighScoreStart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +38,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                       ),
                       //
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           IconButton(
                             onPressed: () {},
@@ -76,6 +77,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                       ),
                       //
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           IconButton(
                             onPressed: () {},
@@ -85,6 +87,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                           Column(
                             children: [
                               Container(
+                                // width: MediaQuery.of(context).size.width / 2,
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:
@@ -114,6 +117,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                       ),
                       //
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           IconButton(
                             onPressed: () {},
@@ -123,6 +127,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                           Column(
                             children: [
                               Container(
+                                // width: MediaQuery.of(context).size.width / 2,
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:
@@ -133,7 +138,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                                         style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.w700)),
-                                    SizedBox(width: 20),
+                                    SizedBox(width: 10),
                                     const Text(
                                       "98",
                                       style: TextStyle(fontSize: 20),
@@ -161,6 +166,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                           Column(
                             children: [
                               Container(
+                                // width: MediaQuery.of(context).size.width / 2,
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:
@@ -199,6 +205,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                           Column(
                             children: [
                               Container(
+                                // width: MediaQuery.of(context).size.width / 2,
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:
@@ -237,6 +244,7 @@ class _GiaoDien_HighCore_StarState extends State<GiaoDien_HighCore_Star> {
                           Column(
                             children: [
                               Container(
+                                // width: MediaQuery.of(context).size.width / 2,
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:

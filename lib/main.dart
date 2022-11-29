@@ -1,10 +1,7 @@
-import 'package:game/package/HomePage.dart';
-import 'package:game/package/Setting.dart';
-import 'package:game/package/ChangePassword.dart';
-
-import 'package/Welcome.dart';
+import 'package:game/package/MenuPlay.dart';
+import 'package:game/package/giao_dien_bangtraloi.dart';
 import 'package:flutter/material.dart';
-import './package/InfomationDetail.dart';
+import 'package:game/package/welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +9,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

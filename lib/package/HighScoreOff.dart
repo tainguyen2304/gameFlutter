@@ -1,13 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
-class GiaoDien_HighScore_Off extends StatefulWidget {
-  const GiaoDien_HighScore_Off({super.key});
+class HighScoreRank extends StatefulWidget {
+  const HighScoreRank({super.key});
 
   @override
-  State<GiaoDien_HighScore_Off> createState() => _GiaoDien_HighScore_OffState();
+  State<HighScoreRank> createState() => _HighScoreRankState();
 }
 
-class _GiaoDien_HighScore_OffState extends State<GiaoDien_HighScore_Off> {
+class _HighScoreRankState extends State<HighScoreRank> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +63,7 @@ class _GiaoDien_HighScore_OffState extends State<GiaoDien_HighScore_Off> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          "images/star.png",
+                                          "images/rankBk.png",
                                           width: 50,
                                         ),
                                         const SizedBox(
@@ -99,7 +101,7 @@ class _GiaoDien_HighScore_OffState extends State<GiaoDien_HighScore_Off> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          "images/star (1).png",
+                                          "images/rankVang.png",
                                           width: 50,
                                         ),
                                         const SizedBox(
@@ -137,7 +139,7 @@ class _GiaoDien_HighScore_OffState extends State<GiaoDien_HighScore_Off> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          "images/badge.png",
+                                          "images/rankSliver.png",
                                           width: 50,
                                         ),
                                         const SizedBox(
@@ -175,7 +177,7 @@ class _GiaoDien_HighScore_OffState extends State<GiaoDien_HighScore_Off> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          "images/badge.png",
+                                          "images/rankDong.png",
                                           width: 50,
                                         ),
                                         const SizedBox(
@@ -195,13 +197,17 @@ class _GiaoDien_HighScore_OffState extends State<GiaoDien_HighScore_Off> {
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   shape: const StadiumBorder(),
-                                  backgroundColor: Colors.white,
+                                  backgroundColor:
+                                      Color.fromARGB(255, 99, 71, 71),
                                   padding:
-                                      const EdgeInsets.fromLTRB(30, 20, 30, 20),
-                                  side: BorderSide(
+                                      const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                                  side: const BorderSide(
                                       width: 2, color: Colors.black)),
                               onPressed: () {},
-                              child: Text("Back")),
+                              child: const Text(
+                                "Back",
+                                style: TextStyle(color: Colors.white),
+                              )),
                         ],
                       ),
                     ],

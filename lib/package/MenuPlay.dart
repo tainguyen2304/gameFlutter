@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:game/package/Setting.dart';
+import 'package:game/package/drawerMenu.dart';
 
 class MenuPlay extends StatefulWidget {
-  const MenuPlay({super.key});
+  MenuPlay(
+      {super.key,
+      required this.nickName,
+      required this.avatar,
+      required this.age});
+  final String nickName;
+  final String avatar;
+  final String age;
 
   @override
   State<MenuPlay> createState() => _MenuPlayState();
@@ -11,7 +20,55 @@ class _MenuPlayState extends State<MenuPlay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Image.asset(
+                    widget.avatar,
+                    height: 60,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.nickName,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          'LV.0',
+                          style: TextStyle(fontSize: 15),
+                        )
+                      ],
+                    ),
+                  )
+                ])),
+            Container(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Setting()),
+                  );
+                },
+                icon: Image.asset("images/settings.png"),
+                iconSize: 30,
+              ),
+            ),
+          ],
+        ),
+      ),
+      drawer: const ListFriend(),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
@@ -19,52 +76,7 @@ class _MenuPlayState extends State<MenuPlay> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 100),
-                  height: 100,
-                  child: Image.asset(
-                    "images/icon2.png",
-                    height: 100,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 110),
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Username',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        'LV.120',
-                        style: TextStyle(fontSize: 15),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 150),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Image.asset("images/settings.png"),
-                    iconSize: 50,
-                  ),
-                ),
-              ],
-            ),
             Image.asset("images/icon1.png"),
-            const SizedBox(
-              height: 2.0,
-            ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
@@ -109,18 +121,6 @@ class _MenuPlayState extends State<MenuPlay> {
                   onPressed: () {},
                   child: Text("Create Room")),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset("images/settings.png"),
-                  iconSize: 50,
-                ),
-              ],
-            )
           ],
         ),
       ),

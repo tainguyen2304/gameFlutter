@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GiaoDien_Won extends StatefulWidget {
-  const GiaoDien_Won({super.key});
+class WinPage extends StatefulWidget {
+  const WinPage({super.key});
 
   @override
-  State<GiaoDien_Won> createState() => _GiaoDien_WonState();
+  State<WinPage> createState() => _WinPageState();
 }
 
-class _GiaoDien_WonState extends State<GiaoDien_Won> {
+class _WinPageState extends State<WinPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,8 +72,7 @@ class _GiaoDien_WonState extends State<GiaoDien_Won> {
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2,
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 246, 203, 217)
-                        ),
+                            color: Color.fromARGB(255, 246, 203, 217)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -105,7 +104,7 @@ class _GiaoDien_WonState extends State<GiaoDien_Won> {
                         padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
                         side: BorderSide(width: 2, color: Colors.black)),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Continue",
                       style: TextStyle(fontSize: 25),
                     )),
@@ -117,9 +116,13 @@ class _GiaoDien_WonState extends State<GiaoDien_Won> {
                             shape: const StadiumBorder(),
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.all(25),
-                            side: BorderSide(width: 2, color: Colors.black)),
+                            side: const BorderSide(
+                                width: 2, color: Colors.black)),
                         onPressed: () {},
-                        child: Text("Home")),
+                        child: const Text(
+                          "PLay again",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
                     SizedBox(
                       width: 100,
                     ),
@@ -130,7 +133,10 @@ class _GiaoDien_WonState extends State<GiaoDien_Won> {
                             padding: const EdgeInsets.all(25),
                             side: BorderSide(width: 2, color: Colors.black)),
                         onPressed: () {},
-                        child: Text("Back")),
+                        child: const Text(
+                          "Back",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
                   ],
                 )
               ],
