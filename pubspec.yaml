@@ -65,6 +65,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - images/h7.jpg
     - images/h6.jpg
     - images/h5.jpg
     - images/h4.jpg
@@ -105,6 +106,16 @@ flutter:
     - images/rankVang.png
     - images/information.png
     - images/rankDong.png
+    - images/crying.png
+    - images/king1.png
+    - images/plus.png
+    - images/start.png
+    - images/level1.png
+    - images/level2.png
+    - images/level3.png
+    - images/level4.png
+    - images/final-boss.png
+    - images/final-boss.png
 
   #   - images/a_dot_ham.jpeg
 

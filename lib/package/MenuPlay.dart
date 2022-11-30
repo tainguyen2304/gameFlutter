@@ -1,6 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/package/drawerMenu.dart';
+
+import '../drawer/my_header_drawer.dart';
 
 class MenuPlay extends StatefulWidget {
   MenuPlay(
@@ -66,7 +69,20 @@ class _MenuPlayState extends State<MenuPlay> {
           ],
         ),
       ),
-      drawer: const ListFriend(),
+      // drawer: const ListFriend(),
+      drawer: Drawer(
+        child: SingleChildScrollView(
+          dragStartBehavior: DragStartBehavior.down,
+          child: Container(
+            child: Column(
+              children: [
+                MyHeaderDrawer(),
+                MyDrawerList(),
+              ],
+            ),
+          ),
+        ),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
@@ -126,4 +142,8 @@ class _MenuPlayState extends State<MenuPlay> {
       ),
     );
   }
+}
+
+Widget MyDrawerList() {
+  return Container();
 }

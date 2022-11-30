@@ -51,7 +51,7 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:
-                                            BorderSide(color: Colors.black))),
+                                            BorderSide(color: Colors.black),)),
                                 child: Row(
                                   children: [
                                     Text("Thái Nguyễn",
