@@ -1,6 +1,7 @@
 import 'package:game/package/HomePage.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/package/ChangePassword.dart';
+import 'package:game/package/chat.dart';
 import 'package:game/package/giao_dien_chotran.dart';
 import 'package/Welcome.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
       //home: Room(),
       home: MenuPlay(),
       //home: GiaoDienBangTL(),
+      // home: GioiThieu(),
+      // home: ChatMesseage(),
     );
   }
 }
