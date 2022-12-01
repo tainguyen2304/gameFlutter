@@ -36,6 +36,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   percent_indicator: ^4.0.1
+  cached_network_image: ^3.2.2
+  http: ^0.13.5
+  firebase_auth: ^4.1.3
+  cloud_firestore: ^4.1.0
+  firebase_core: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +105,7 @@ flutter:
     - images/rankSliver.png
     - images/rankVang.png
     - images/information.png
+    - images/rankDong.png
     - images/crying.png
     - images/king1.png
     - images/plus.png
@@ -114,8 +120,6 @@ flutter:
     - images/idea.png
     - images/day.png
     - images/refresh.png
-
-
 
   #   - images/a_dot_ham.jpeg
 

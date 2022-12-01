@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/package/drawerMenu.dart';
 import 'InfomationDetail.dart';
@@ -34,19 +35,22 @@ class _HomePageState extends State<HomePage> {
                     widget.avatar,
                     height: 60,
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        widget.nickName,
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        'LV.0',
-                        style: TextStyle(fontSize: 15),
-                      )
-                    ],
-                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.nickName,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          'LV.0',
+                          style: TextStyle(fontSize: 15),
+                        )
+                      ],
+                    ),
+                  )
                 ])),
             Container(
               child: IconButton(
@@ -108,7 +112,18 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor: Colors.white,
                       padding: const EdgeInsets.all(25),
                       side: BorderSide(width: 2, color: Colors.black)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MenuPlay(
+                                nickName: widget.nickName,
+                                avatar: widget.avatar,
+                                age: widget.age,
+                              )),
+                    );
+                  },
                   child: Text("Play Game")),
             ),
             Padding(

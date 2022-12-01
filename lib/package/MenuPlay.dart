@@ -1,12 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:game/package/Setting.dart';
 import 'package:game/models/add.dart';
 import 'package:game/models/popmenu.dart';
 import '../drawer/my_header_drawer.dart';
-import 'Setting.dart';
 
 class MenuPlay extends StatefulWidget {
-  const MenuPlay({super.key});
+  MenuPlay(
+      {super.key,
+      required this.nickName,
+      required this.avatar,
+      required this.age});
+  final String nickName;
+  final String avatar;
+  final String age;
 
   @override
   State<MenuPlay> createState() => _MenuPlayState();
@@ -17,10 +24,67 @@ class _MenuPlayState extends State<MenuPlay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: Text('Menu Play'),
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Image.asset(
+                    widget.avatar,
+                    height: 60,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.nickName,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          'LV.0',
+                          style: TextStyle(fontSize: 15),
+                        )
+                      ],
+                    ),
+                  )
+                ])),
+            Container(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Setting()),
+                  );
+                },
+                icon: Image.asset("images/settings.png"),
+                iconSize: 30,
+              ),
+            ),
+          ],
+        ),
+      ),
+      // drawer: const ListFriend(),
+      drawer: Drawer(
+        child: SingleChildScrollView(
+          dragStartBehavior: DragStartBehavior.down,
+          child: Container(
+            child: Column(
+              children: [
+                MyHeaderDrawer(),
+                MyDrawerList(),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
@@ -91,19 +155,6 @@ class _MenuPlayState extends State<MenuPlay> {
               ],
             )
           ],
-        ),
-      ),
-      drawer: Drawer(
-        child: SingleChildScrollView(
-          dragStartBehavior: DragStartBehavior.down,
-          child: Container(
-            child: Column(
-              children: [
-                MyHeaderDrawer(),
-                MyDrawerList(),
-              ],
-            ),
-          ),
         ),
       ),
     );
