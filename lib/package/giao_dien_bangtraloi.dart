@@ -1,6 +1,8 @@
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter/material.dart';
 
+import 'Setting.dart';
+
 class GiaoDienBangTL extends StatefulWidget {
   const GiaoDienBangTL({super.key});
 
@@ -52,7 +54,13 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                   Container(
                     margin: EdgeInsets.only(bottom: 100),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Setting()),
+                        );
+                      },
                       icon: Image.asset("images/settings.png"),
                       iconSize: 50,
                     ),
@@ -289,7 +297,7 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset("images/settings.png"),
+                  icon: Image.asset("images/refresh.png"),
                   iconSize: 100,
                 ),
               ],

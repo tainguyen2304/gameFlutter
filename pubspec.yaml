@@ -70,6 +70,7 @@ flutter:
     - images/h5.jpg
     - images/h4.jpg
     - images/h1.jpg
+    - images/h8.jpg
     - images/facebook.png
     - images/google.png
     - images/h2.jpg
@@ -86,7 +87,6 @@ flutter:
     - images/Mask Group 20.png
     - images/swords.png
     - images/king.png
-    - images/h1.jpg
     - images/h2.jpg
     - images/h3.jpg
     - images/backgroundGeneral.png
@@ -115,7 +115,11 @@ flutter:
     - images/level3.png
     - images/level4.png
     - images/final-boss.png
-    - images/final-boss.png
+    - images/arrow.png
+    - images/loupe.png
+    - images/idea.png
+    - images/day.png
+    - images/refresh.png
 
   #   - images/a_dot_ham.jpeg
 

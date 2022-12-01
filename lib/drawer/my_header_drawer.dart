@@ -28,7 +28,19 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
               ),
             ),
           ),
-          Text('data')
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Username',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                'LV.120',
+                style: TextStyle(fontSize: 15),
+              )
+            ],
+          ),
         ],
       ),
     );
