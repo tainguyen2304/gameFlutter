@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GiaoDien_chienthang extends StatefulWidget {
-  const GiaoDien_chienthang({super.key});
+class WinPage extends StatefulWidget {
+  const WinPage({super.key});
 
   @override
-  State<GiaoDien_chienthang> createState() => _GiaoDien_chienthangState();
+  State<WinPage> createState() => _WinPageState();
 }
 
-class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
+class _WinPageState extends State<WinPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +49,7 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 50,
                     ),
                     IconButton(
@@ -67,18 +67,47 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                         borderRadius: BorderRadius.circular(20),
                         color: Color.fromARGB(255, 65, 49, 3)),
                     child: Center(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: const StadiumBorder(),
-                              backgroundColor: Color.fromARGB(255, 83, 88, 93),
-                              padding:
-                                  const EdgeInsets.fromLTRB(50, 30, 50, 30),
-                              side: BorderSide(width: 2, color: Colors.black)),
-                          onPressed: () {},
-                          child: Text("Play Again")),
-                    ),
+                        child: Opacity(
+                      opacity: 0.80,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 246, 203, 217)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 50,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 50,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 50,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
                   ),
                 ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                        side: BorderSide(width: 2, color: Colors.black)),
+                    onPressed: () {},
+                    child: const Text(
+                      "Continue",
+                      style: TextStyle(fontSize: 25),
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -87,9 +116,13 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                             shape: const StadiumBorder(),
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.all(25),
-                            side: BorderSide(width: 2, color: Colors.black)),
+                            side: const BorderSide(
+                                width: 2, color: Colors.black)),
                         onPressed: () {},
-                        child: Text("Home")),
+                        child: const Text(
+                          "PLay again",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
                     SizedBox(
                       width: 100,
                     ),
@@ -100,7 +133,10 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                             padding: const EdgeInsets.all(25),
                             side: BorderSide(width: 2, color: Colors.black)),
                         onPressed: () {},
-                        child: Text("Back")),
+                        child: const Text(
+                          "Back",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
                   ],
                 )
               ],

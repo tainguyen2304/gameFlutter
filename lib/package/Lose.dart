@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GiaoDien_chienthang extends StatefulWidget {
-  const GiaoDien_chienthang({super.key});
+class GiaoDien_Lose extends StatefulWidget {
+  const GiaoDien_Lose({super.key});
 
   @override
-  State<GiaoDien_chienthang> createState() => _GiaoDien_chienthangState();
+  State<GiaoDien_Lose> createState() => _GiaoDien_Lose();
 }
 
-class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
+class _GiaoDien_Lose extends State<GiaoDien_Lose> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                       fontSize: 20,
                     )),
                 Text(
-                  "You Won",
+                  "You Lose",
                   style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                 ),
                 Row(
@@ -37,35 +37,28 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: Image.asset("images/king.png"),
+                          icon: Image.asset("images/crying.png"),
                           iconSize: 100,
                         ),
                         IconButton(
                           onPressed: () {},
                           icon: Image.asset(
                             "images/Mask Group 17.png",
+                            fit: BoxFit.cover,
                           ),
-                          iconSize: 150,
+                          iconSize: 100,
                         ),
                       ],
-                    ),
-                    SizedBox(
-                      width: 50,
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Image.asset("images/icon2.png"),
-                      iconSize: 80,
                     ),
                   ],
                 ),
                 Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    height: MediaQuery.of(context).size.width / 2.0 / 2,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 65, 49, 3)),
+                    // width: MediaQuery.of(context).size.width / 1.5,
+                    //height: MediaQuery.of(context).size.width / 2.0 / 2,
+                    //decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(20),
+                    //color: Color.fromARGB(255, 65, 49, 3)),
                     child: Center(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(

@@ -36,6 +36,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   percent_indicator: ^4.0.1
+  cached_network_image: ^3.2.2
+  http: ^0.13.5
+  firebase_auth: ^4.1.3
+  cloud_firestore: ^4.1.0
+  firebase_core: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -60,10 +65,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - images/h7.jpg
     - images/h6.jpg
     - images/h5.jpg
     - images/h4.jpg
     - images/h1.jpg
+    - images/h8.jpg
     - images/facebook.png
     - images/google.png
     - images/h2.jpg
@@ -78,12 +85,8 @@ flutter:
     - images/Mask Group 18.png
     - images/Mask Group 19.png
     - images/Mask Group 20.png
-    - images/badge.png
-    - images/star.png
-    - images/star (1).png
     - images/swords.png
     - images/king.png
-    - images/h1.jpg
     - images/h2.jpg
     - images/h3.jpg
     - images/backgroundGeneral.png
@@ -95,6 +98,28 @@ flutter:
     - images/avatar4.png
     - images/avatar5.png
     - images/avatar6.png
+    - images/passed.png
+    - images/icon7.png
+    - images/iconHighScore.png
+    - images/rankBk.png
+    - images/rankSliver.png
+    - images/rankVang.png
+    - images/information.png
+    - images/rankDong.png
+    - images/crying.png
+    - images/king1.png
+    - images/plus.png
+    - images/start.png
+    - images/level1.png
+    - images/level2.png
+    - images/level3.png
+    - images/level4.png
+    - images/final-boss.png
+    - images/arrow.png
+    - images/loupe.png
+    - images/idea.png
+    - images/day.png
+    - images/refresh.png
 
   #   - images/a_dot_ham.jpeg
 
