@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/Setting.dart';
@@ -5,14 +6,10 @@ import 'package:game/package/drawerMenu.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage(
-      {super.key,
-      required this.nickName,
-      required this.avatar,
-      required this.age});
-  final String nickName;
-  final String avatar;
-  final String age;
+  HomePage({super.key, this.nickName, this.avatar, this.age});
+  final String? nickName;
+  final String? avatar;
+  final String? age;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -32,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                   Image.asset(
-                    widget.avatar,
+                    widget.avatar.toString(),
                     height: 60,
                   ),
                   Padding(
@@ -40,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         Text(
-                          widget.nickName,
+                          widget.nickName.toString(),
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -96,9 +93,9 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => InfoDetail(
-                                nickName: widget.nickName,
-                                avatar: widget.avatar,
-                                age: widget.age,
+                                nickName: widget.nickName.toString(),
+                                avatar: widget.avatar.toString(),
+                                age: widget.age.toString(),
                               )),
                     );
                   },
@@ -118,9 +115,9 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => MenuPlay(
-                                nickName: widget.nickName,
-                                avatar: widget.avatar,
-                                age: widget.age,
+                                nickName: widget.nickName.toString(),
+                                avatar: widget.avatar.toString(),
+                                age: widget.age.toString(),
                               )),
                     );
                   },

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "687630079402",
+    "project_id": "who-is-stupid",
+    "storage_bucket": "who-is-stupid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687630079402:android:13343cc12ef98b65ac47d3",
+        "android_client_info": {
+          "package_name": "com.example.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687630079402-0aieoti53e0elun3jmig9u8ib2p0681s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdcN5oNkEul99EzOKJeoG-S8bqvtBoc-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687630079402-0aieoti53e0elun3jmig9u8ib2p0681s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
