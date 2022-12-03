@@ -23,12 +23,46 @@ class _SingupState extends State<Singup> {
               child: CircularProgressIndicator(),
             ));
     try {
-      if (confimtxtpass.text.trim() == txtpass.text.trim()) {
+      if (!txtemail.toString().contains("@")) {
+        final snackBar = SnackBar(
+          content: Text('Sai định dạng email '),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else if (confimtxtpass.text.trim() == txtpass.text.trim()) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: txtemail.text.trim(), password: txtpass.text.trim());
+        FirebaseAuth.instance.authStateChanges().listen(
+          (event) {
+            if (event != null) {
+              final snackBar = SnackBar(
+                content: Text('Thanh công '),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              FirebaseAuth.instance.signOut();
+              Navigator.of(context).pop();
+            }
+          },
+        );
+      } else if (txtpass.text != confimtxtpass.text) {
+        final snackBar = SnackBar(
+          content: Text('Mật khẩu xác thực không giống'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     } on FirebaseAuthException catch (e) {
       print(e);
+      if ((txtemail.text == "" &&
+              txtpass.text == "" &&
+              confimtxtpass.text == "") ||
+          (txtemail.text == "") ||
+          (txtpass.text == "") ||
+          (confimtxtpass.text == "")) {
+        final snackBar = SnackBar(
+          content: Text('Không được để email, psw và xác thực password rỗng'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     }
     Navigator.of(context).pop();
   }
