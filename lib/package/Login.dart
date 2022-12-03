@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game/main.dart';
+import 'package:game/package/resetpassScreen.dart';
 import 'Signup.dart';
 import 'ChooseAvatar.dart';
 
@@ -14,16 +15,13 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController psw = TextEditingController();
+  void quen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => resetpassScreen()),
+    );
+  }
 
-  // void _login() {
-  //   if (email.text != "" || psw.text != "") {
-  //     Navigator.of(context).popUntil((route) => route.isFirst);
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => const ChooseAvatar()),
-  //     );
-  //   }
-  // }
   Future _login() async {
     showDialog(
         context: context,
@@ -32,9 +30,33 @@ class _LoginState extends State<Login> {
               child: CircularProgressIndicator(),
             ));
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text.trim(), password: psw.text.trim());
+      if ((email.text == "" && psw.text == "") ||
+          (email.text == "") ||
+          (psw.text == "")) {
+        final snackBar = SnackBar(
+          content: Text('Không được để email rỗng và psw'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: email.text.trim(), password: psw.text.trim());
+        FirebaseAuth.instance.authStateChanges().listen(
+          (event) {
+            if (event != null) {
+              final snackBar = SnackBar(
+                content: Text('Thanh công '),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              psw.text = "";
+            }
+          },
+        );
+      }
     } on FirebaseAuthException catch (e) {
+      final snackBar = SnackBar(
+        content: Text('Sai email hoặc password'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       print(e);
     }
     Navigator.of(context).pop();
@@ -46,13 +68,6 @@ class _LoginState extends State<Login> {
       body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            // if (snapshot.connectionState == ConnectionState.waiting) {
-            //   return Center(child: CircularProgressIndicator());
-            // } else if (snapshot.hasError) {
-            //   return Center(
-            //     child: Text("some thing wrong"),
-            //   );
-            // } else
             if (snapshot.hasData) {
               return ChooseAvatar();
             } else {
@@ -92,8 +107,9 @@ class _LoginState extends State<Login> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(10),
-                                  child: TextField(
+                                  child: TextFormField(
                                     controller: email,
+                                    keyboardType: TextInputType.emailAddress,
                                     style:
                                         const TextStyle(color: Colors.black54),
                                     decoration: const InputDecoration(
@@ -132,7 +148,15 @@ class _LoginState extends State<Login> {
                                       child: Container(),
                                     ),
                                     GestureDetector(
-                                      child: const Text(
+                                      onTap: () => {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  resetpassScreen()),
+                                        )
+                                      },
+                                      child: Text(
                                         'Forgot Password?',
                                         style: TextStyle(
                                           decoration: TextDecoration.underline,
@@ -141,7 +165,6 @@ class _LoginState extends State<Login> {
                                           fontSize: 15,
                                         ),
                                       ),
-                                      onTap: () => {print('i was tapped!')},
                                     ),
                                   ],
                                 ),
@@ -199,6 +222,8 @@ class _LoginState extends State<Login> {
                                           ),
                                         ),
                                         onPressed: () => {
+                                          email.text = "",
+                                          psw.text = "",
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
