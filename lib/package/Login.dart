@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
           (email.text == "") ||
           (psw.text == "")) {
         final snackBar = SnackBar(
-          content: Text('Không được để email rỗng và psw'),
+          content: Text('Không được để email rỗng và passworld rỗng'),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else {
