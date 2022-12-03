@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/Login.dart';
+import 'package:game/package/welcome.dart';
 
 class Singup extends StatefulWidget {
   const Singup({super.key});
@@ -9,11 +12,32 @@ class Singup extends StatefulWidget {
 }
 
 class _SingupState extends State<Singup> {
+  TextEditingController txtemail = new TextEditingController();
+  TextEditingController txtpass = new TextEditingController();
+  TextEditingController confimtxtpass = new TextEditingController();
+  Future SignUp() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+              child: CircularProgressIndicator(),
+            ));
+    try {
+      if (confimtxtpass.text.trim() == txtpass.text.trim()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: txtemail.text.trim(), password: txtpass.text.trim());
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+      body: ListView(children: [
+        Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("images/h5.jpg"), fit: BoxFit.cover),
@@ -24,21 +48,24 @@ class _SingupState extends State<Singup> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset("images/icon1.png"),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(50, 8, 50, 8),
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        hintText: "Enter Name",
-                        labelText: "Name",
-                        labelStyle: TextStyle(color: Colors.white),
-                        hintStyle: TextStyle(
-                            color: Color.fromARGB(255, 200, 199, 199))),
-                  ),
-                ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
                   child: TextField(
+                    controller: txtemail,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: "Enter Email",
+                      labelText: "Email:",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 200, 199, 199)),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
+                  child: TextField(
+                    controller: txtpass,
                     style: TextStyle(color: Colors.white),
                     obscureText: true,
                     decoration: InputDecoration(
@@ -50,9 +77,10 @@ class _SingupState extends State<Singup> {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
                   child: TextField(
+                    controller: confimtxtpass,
                     style: TextStyle(color: Colors.white),
                     obscureText: true,
                     decoration: InputDecoration(
@@ -61,19 +89,6 @@ class _SingupState extends State<Singup> {
                           TextStyle(color: Color.fromARGB(255, 200, 199, 199)),
                       labelStyle: TextStyle(color: Colors.white),
                       labelText: "Confirm Password:",
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(50, 0, 50, 8),
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Enter Email",
-                      labelText: "Email:",
-                      labelStyle: TextStyle(color: Colors.white),
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 200, 199, 199)),
                     ),
                   ),
                 ),
@@ -93,7 +108,9 @@ class _SingupState extends State<Singup> {
                           width: 2.0,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        SignUp();
+                      },
                       child: const Text(
                         "Sign Up",
                       ),
@@ -112,7 +129,7 @@ class _SingupState extends State<Singup> {
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        "Login",
+                        "Back to home",
                       ),
                     ),
                   ],
@@ -121,7 +138,7 @@ class _SingupState extends State<Singup> {
             ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }
