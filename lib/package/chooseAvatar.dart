@@ -37,11 +37,14 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
       } else
         sologanis = false;
     });
+    var a = FirebaseAuth.instance.currentUser!;
+
     try {
       if (sologanis == false && useis == false) {
         final data = FirebaseFirestore.instance.collection('user').doc();
 
-        final json = Usera(name: name, avatar: avatar, age: age);
+        final json =
+            Usera(name: name, avatar: avatar, age: age, email: a.email!);
 
         return data.set(json.toJson());
       }
