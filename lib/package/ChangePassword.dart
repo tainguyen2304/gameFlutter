@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/Setting.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -9,6 +11,8 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
