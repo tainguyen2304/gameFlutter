@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/models/add.dart';
 import 'package:game/models/popmenu.dart';
+import 'package:game/package/choose_level_play_offline.dart';
+import 'package:game/package/choose_topic_screen.dart';
 import '../drawer/my_header_drawer.dart';
 
 class MenuPlay extends StatefulWidget {
@@ -101,7 +103,14 @@ class _MenuPlayState extends State<MenuPlay> {
                       backgroundColor: Colors.white,
                       padding: const EdgeInsets.all(25),
                       side: BorderSide(width: 2, color: Colors.black)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChooseTopic()),
+                    );
+                  },
                   child: Text("Player Offline")),
             ),
             Padding(
@@ -137,23 +146,6 @@ class _MenuPlayState extends State<MenuPlay> {
                   onPressed: () {},
                   child: Text("Create Room")),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Setting()),
-                    );
-                  },
-                  icon: Image.asset("images/settings.png"),
-                  iconSize: 50,
-                ),
-              ],
-            )
           ],
         ),
       ),
