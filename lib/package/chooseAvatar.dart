@@ -159,8 +159,9 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  createData(
-                                      nickName.text, txtage.text, avatar);
+                                  // createData(
+                                  //     nickName.text, txtage.text, avatar);
+                                  _done();
                                 },
                                 child: const Padding(
                                   padding: EdgeInsets.all(10),
