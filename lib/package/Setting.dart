@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/ChangePassword.dart';
+
+import 'Login.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -105,6 +108,32 @@ class _SettingState extends State<Setting> {
                         onPressed: () {},
                         child: const Text(
                           "Change Info",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 1 / 2 + 40,
+                    padding: const EdgeInsets.all(6),
+                    child: ElevatedButton(
+                        style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                              Color.fromARGB(255, 227, 221, 221),
+                            ),
+                            padding: MaterialStatePropertyAll(
+                                EdgeInsets.fromLTRB(40, 20, 40, 20))),
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+
+                          Navigator.pop(context);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Login()));
+                        },
+                        child: const Text(
+                          "Đăng xuất",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )),
                   ),
