@@ -63,6 +63,10 @@ class _SingupState extends State<Singup> {
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
+      final snackBar = SnackBar(
+        content: Text("Email đã có người dùng"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     Navigator.of(context).pop();
   }
