@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/welcome.dart';
@@ -19,11 +20,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: MenuPlay(
-        nickName: '',
-        age: '',
-        avatar: '',
-      ),
+      // home: MenuPlay(
+      //   nickName: '',
+      //   age: '',
+      //   avatar: '',
+      // ),
+      home: const Welcome(),
     );
   }
 }
