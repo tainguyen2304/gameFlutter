@@ -5,7 +5,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name="android.permission.ACCESS_NETWORK_STATE"
+            
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
@@ -33,3 +33,5 @@
             android:value="2" />
     </application>
 </manifest>
+
+            <!-- android:name="android.permission.ACCESS_NETWORK_STATE" -->
