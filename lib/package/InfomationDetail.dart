@@ -70,7 +70,7 @@ class _InfoDetailState extends State<InfoDetail> {
                 decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(color: Colors.black))),
                 child: Text(
-                  'Age: ${widget.age}',
+                  'Your slogan: ${widget.age}',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),

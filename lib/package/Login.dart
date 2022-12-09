@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game/main.dart';
@@ -17,6 +16,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController psw = TextEditingController();
+
   void quen() {
     Navigator.push(
       context,
@@ -28,14 +28,14 @@ class _LoginState extends State<Login> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(
+        builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
     try {
       if ((email.text == "" && psw.text == "") ||
           (email.text == "") ||
           (psw.text == "")) {
-        final snackBar = SnackBar(
+        final snackBar = const SnackBar(
           content: Text('Không được để email rỗng và passworld rỗng'),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
         FirebaseAuth.instance.authStateChanges().listen(
           (event) {
             if (event != null) {
-              final snackBar = SnackBar(
+              final snackBar = const SnackBar(
                 content: Text('Thanh công '),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
       }
     } on FirebaseAuthException catch (e) {
       final snackBar = SnackBar(
-        content: Text('Sai email hoặc password'),
+        content: const Text('Sai email hoặc password'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       print(e);
@@ -64,16 +64,13 @@ class _LoginState extends State<Login> {
     Navigator.of(context).pop();
   }
 
-
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              
               return ChooseAvatar();
             } else {
               return ListView(

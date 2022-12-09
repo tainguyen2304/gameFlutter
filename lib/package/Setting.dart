@@ -129,11 +129,13 @@ class _SettingState extends State<Setting> {
                           FirebaseAuth.instance.signOut();
 
                           Navigator.pop(context);
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Login()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()));
                         },
                         child: const Text(
-                          "Đăng xuất",
+                          "Log out",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )),
                   ),

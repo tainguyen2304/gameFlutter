@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:game/drawer/my_header_drawer.dart';
 import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
