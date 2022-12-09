@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:game/drawer/my_header_drawer.dart';
+import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -19,7 +22,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: Welcome(),
+      // home: MenuPlay(
+      //   nickName: '',
+      //   age: '',
+      //   avatar: '',
+      // ),
+      home: const Welcome(),
     );
   }
 }

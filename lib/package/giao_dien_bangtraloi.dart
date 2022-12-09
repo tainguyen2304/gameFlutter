@@ -1,17 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter/material.dart';
 
 import 'Setting.dart';
 
-class GiaoDienBangTL extends StatefulWidget {
-  const GiaoDienBangTL({super.key});
+class PlayOffline extends StatefulWidget {
+  const PlayOffline({super.key, this.topic, this.level});
+  final String? level;
+  final String? topic;
 
   @override
-  State<GiaoDienBangTL> createState() => _GiaoDienBangTLState();
+  State<PlayOffline> createState() => _PlayOfflineState();
 }
 
-class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
-  Color _color = Color.fromARGB(255, 101, 103, 101).withOpacity(0.8);
+class _PlayOfflineState extends State<PlayOffline> {
+  Color _color = const Color.fromARGB(255, 101, 103, 101).withOpacity(0.8);
+
   void _change() {
     setState(() {
       _color = Colors.green;
@@ -21,255 +25,187 @@ class _GiaoDienBangTLState extends State<GiaoDienBangTL> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset("images/icon2.png"),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        body: ListView(
+      children: [
+        Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
+            ),
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('question')
+                  .where('topic', isEqualTo: widget.topic)
+                  .where('level', isEqualTo: widget.level)
+                  // .orderBy('created_at', descending: false)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                if (streamSnapshot.hasData) {
+                  return Column(
                     children: [
                       const Text(
-                        'Username',
+                        'WHO IS STUPID ?',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'MyFont'),
                       ),
-                      const Text(
-                        'LV.120',
-                        style: TextStyle(fontSize: 15),
-                      )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              var showDialog2 = showDialog(
+                                context: context,
+                                builder: (context) => QuyenTroGiup(),
+                              );
+                            },
+                            icon: Image.asset("images/help.png"),
+                            iconSize: 80,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 5.0, 0),
+                            child: Text(
+                              '${widget.topic}:  ${widget.level}',
+                              style: const TextStyle(
+                                  fontSize: 20.0, fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
+                      LinearPercentIndicator(
+                        animation: true,
+                        lineHeight: 20.0,
+                        animationDuration: 5000,
+                        percent: 1,
+                        center: const Text("10s"),
+                        progressColor: Colors.black38,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10.0),
+                        width: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                              Color.fromARGB(255, 65, 64, 64).withOpacity(0.8),
+                            ),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
+                          ),
+                          onPressed: () => {},
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              '1 + 1 =',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'CHOOSE YOUR ANSWER:',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                          children: streamSnapshot.data!.docs
+                              .map((questionItem) => Container(
+                                  margin: const EdgeInsets.all(4),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: const StadiumBorder(),
+                                        backgroundColor:
+                                            Color.fromARGB(255, 168, 167, 166),
+                                        side: const BorderSide(
+                                            width: 3, color: Colors.black)),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .popUntil((route) => route.isFirst);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => PlayOffline(
+                                                  topic: widget.topic,
+                                                  level:
+                                                      questionItem['name'])));
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        // color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(60.0),
+                                        border:
+                                            Border.all(style: BorderStyle.none),
+                                      ),
+                                      child: Text(
+                                        questionItem['content'],
+                                        style: const TextStyle(
+                                            fontSize: 12, color: Colors.white),
+                                      ),
+                                    ),
+                                  )))
+                              .toList()
+                          //   [
+                          //   SizedBox(
+                          //     width: MediaQuery.of(context).size.width,
+                          //     child: ElevatedButton(
+                          //       style: ButtonStyle(
+                          //         backgroundColor:
+                          //             MaterialStatePropertyAll<Color>(
+                          //           Color.fromARGB(255, 101, 103, 101)
+                          //               .withOpacity(0.8),
+                          //         ),
+                          //         shape: MaterialStateProperty.all(
+                          //           RoundedRectangleBorder(
+                          //               borderRadius:
+                          //                   BorderRadius.circular(10.0)),
+                          //         ),
+                          //       ),
+                          //       onPressed: () {
+                          //         var showDialog2 = showDialog(
+                          //           context: context,
+                          //           builder: (context) => QuyenTroGiup1(),
+                          //         );
+                          //       },
+                          //       child: const Padding(
+                          //         padding: EdgeInsets.all(10.0),
+                          //         child: Text(
+                          //           '1',
+                          //           style: TextStyle(color: Colors.white),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          //   const SizedBox(
+                          //     height: 10.0,
+                          //   ),
+                          // ],
+                          )
                     ],
-                  ),
-                  Expanded(
-                    child: Container(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 100),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Setting()),
-                        );
-                      },
-                      icon: Image.asset("images/settings.png"),
-                      iconSize: 50,
-                    ),
-                  ),
-                ],
-              ),
-              const Text(
-                'WHO IS STUPID',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40,
-                    fontStyle: FontStyle.italic,
-                    fontFamily: 'MyFont'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      var showDialog2 = showDialog(
-                        context: context,
-                        builder: (context) => QuyenTroGiup(),
-                      );
-                    },
-                    icon: Image.asset("images/help.png"),
-                    iconSize: 80,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 5.0, 0),
-                    child: Text(
-                      'LV1',
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-              LinearPercentIndicator(
-                animation: true,
-                lineHeight: 20.0,
-                animationDuration: 5000,
-                percent: 1,
-                center: const Text("10s"),
-                progressColor: Colors.black38,
-              ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(
-                      Color.fromARGB(255, 65, 64, 64).withOpacity(0.8),
-                    ),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                  ),
-                  onPressed: () => {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      '1 + 1 =',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    'CHOOSE YOUR ANSWER:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(
-                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
-                        ),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                      ),
-                      onPressed: () {
-                        var showDialog2 = showDialog(
-                          context: context,
-                          builder: (context) => QuyenTroGiup1(),
-                        );
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          '1',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll<Color>(_color),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                      ),
-                      onPressed: () {
-                        var showDialog2 = showDialog(
-                          context: context,
-                          builder: (context) => QuyenTroGiup1(),
-                        );
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          '2',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(
-                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
-                        ),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                      ),
-                      onPressed: () {
-                        var showDialog2 = showDialog(
-                          context: context,
-                          builder: (context) => QuyenTroGiup1(),
-                        );
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          '3',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(
-                          Color.fromARGB(255, 101, 103, 101).withOpacity(0.8),
-                        ),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                      ),
-                      onPressed: () {
-                        var showDialog2 = showDialog(
-                          context: context,
-                          builder: (context) => QuyenTroGiup1(),
-                        );
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          '4',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            )),
+      ],
+    ));
   }
 
   AlertDialog QuyenTroGiup() {
