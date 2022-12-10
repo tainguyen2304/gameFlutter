@@ -43,7 +43,13 @@ class _ChooseAvatarState extends State<changeinfo> {
     });
     try {
       for (int i = 0; i < lsUsers.length; i++) {
-        if (lsUsers[i].email == FirebaseAuth.instance.currentUser!.email) {
+        if (lsUsers[i].name == name) {
+          final snackBar = SnackBar(
+            content: Text('Name này đã tồn tại'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else if (lsUsers[i].email ==
+            FirebaseAuth.instance.currentUser!.email) {
           FirebaseFirestore.instance
               .collection("User")
               .doc(lsUsers[i].id)

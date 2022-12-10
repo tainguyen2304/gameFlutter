@@ -42,7 +42,20 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
       }
     });
     try {
-      if (sologanis == false && useis == false && avataris == false) {
+      var check = 0;
+      for (int i = 0; i < lsUsers.length; i++) {
+        if (lsUsers[i].name == name) check = 1;
+      }
+      if (check == 1) {
+        final snackBar = SnackBar(
+          content: Text('Đâ tồn tại name này'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+      if (sologanis == false &&
+          useis == false &&
+          avataris == false &&
+          check == 0) {
         var a = FirebaseAuth.instance.currentUser!;
         final data = FirebaseFirestore.instance.collection('User').doc();
         var id = data.id;
@@ -59,7 +72,9 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                     avatar: avatar,
                     age: txtage.text)));
       }
-    } on FirebaseAuthException catch (e) {}
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
     ;
   }
 
@@ -85,7 +100,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
   var sologanerrr = "Không được để trống";
   var useis = false;
   var sologanis = false;
-
+  List<Usera> lsUsers = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +109,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final data = snapshot.data!.docs;
-            List<Usera> lsUsers = [];
+
             for (var row in data) {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
@@ -114,186 +129,190 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                     age: lsUsers[i].age);
               }
             }
-          }
-
-          return ListView(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("images/backgroundGeneral.png"),
-                      fit: BoxFit.cover),
-                ),
-                child: Form(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),
-                        child: Image.asset(
-                          "images/icon1.png",
-                          fit: BoxFit.cover,
-                          width: 60,
+            return ListView(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("images/backgroundGeneral.png"),
+                        fit: BoxFit.cover),
+                  ),
+                  child: Form(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),
+                          child: Image.asset(
+                            "images/icon1.png",
+                            fit: BoxFit.cover,
+                            width: 60,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                'Infordetail',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 25),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(4),
-                              child: TextFormField(
-                                controller: nickName,
-                                style: const TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                    errorText: useis ? usererr : null,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          width: 1, color: Colors.black54),
-                                    ),
-                                    border: OutlineInputBorder(),
-                                    hintText: 'Enter your nick name',
-                                    hintStyle: TextStyle(
-                                        color: Colors.white, fontSize: 12)),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: TextField(
-                                controller: txtage,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                                decoration: InputDecoration(
-                                    errorText: sologanis ? sologanerrr : null,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          width: 1, color: Colors.black54),
-                                    ),
-                                    border: OutlineInputBorder(),
-                                    hintText: 'Your sologan',
-                                    hintStyle: TextStyle(color: Colors.white)),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.zero,
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStatePropertyAll<Color>(
-                                        const Color.fromARGB(255, 247, 224, 224)
-                                            .withOpacity(0.8),
-                                      ),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0)),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      createData(
-                                          nickName.text, txtage.text, avatar);
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        "Done",
-                                        style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 61, 46, 38),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.zero,
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStatePropertyAll<Color>(
-                                        const Color.fromARGB(255, 247, 224, 224)
-                                            .withOpacity(0.8),
-                                      ),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0)),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      FirebaseAuth.instance.signOut();
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        "Đăng xuất",
-                                        style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 61, 46, 38),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'CHOOSE YOUR AVATAR',
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  'Infordetail',
                                   style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                            Wrap(
-                                children: avatarImages
-                                    .map((item) => Container(
-                                          margin: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 10,
-                                                  color:
-                                                      selectedIndex == item.id
-                                                          ? Colors.green
-                                                          : Colors.grey)),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                selectedIndex = item.id;
-                                                avatar = item.image;
-                                              });
-                                            },
-                                            icon: Image.asset(item.image),
-                                            iconSize: 60,
+                                      color: Colors.white, fontSize: 25),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(4),
+                                child: TextFormField(
+                                  controller: nickName,
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      errorText: useis ? usererr : null,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.black54),
+                                      ),
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Enter your nick name',
+                                      hintStyle: TextStyle(
+                                          color: Colors.white, fontSize: 12)),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: TextField(
+                                  controller: txtage,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                  decoration: InputDecoration(
+                                      errorText: sologanis ? sologanerrr : null,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.black54),
+                                      ),
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Your sologan',
+                                      hintStyle:
+                                          TextStyle(color: Colors.white)),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.zero,
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll<Color>(
+                                          const Color.fromARGB(
+                                                  255, 247, 224, 224)
+                                              .withOpacity(0.8),
+                                        ),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0)),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        createData(
+                                            nickName.text, txtage.text, avatar);
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Text(
+                                          "Done",
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 61, 46, 38),
                                           ),
-                                        ))
-                                    .toList()),
-                            Text(avataris ? avatarerr.toString() : "",
-                                style: TextStyle(
-                                  color: Colors.red,
-                                ))
-                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.zero,
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll<Color>(
+                                          const Color.fromARGB(
+                                                  255, 247, 224, 224)
+                                              .withOpacity(0.8),
+                                        ),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0)),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        FirebaseAuth.instance.signOut();
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Text(
+                                          "Đăng xuất",
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 61, 46, 38),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    'CHOOSE YOUR AVATAR',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              Wrap(
+                                  children: avatarImages
+                                      .map((item) => Container(
+                                            margin: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 10,
+                                                    color:
+                                                        selectedIndex == item.id
+                                                            ? Colors.green
+                                                            : Colors.grey)),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedIndex = item.id;
+                                                  avatar = item.image;
+                                                });
+                                              },
+                                              icon: Image.asset(item.image),
+                                              iconSize: 60,
+                                            ),
+                                          ))
+                                      .toList()),
+                              Text(avataris ? avatarerr.toString() : "",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ))
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
+              ],
+            );
+          }
+
+          return Text("");
         },
       ),
     );

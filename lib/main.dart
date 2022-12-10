@@ -22,11 +22,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      // home: MenuPlay(
-      //   nickName: '',
-      //   age: '',
-      //   avatar: '',
-      // ),
       home: const Welcome(),
     );
   }
