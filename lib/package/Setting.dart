@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/ChangePassword.dart';
-
+import 'changeInfo.dart';
 import 'Login.dart';
 
 class Setting extends StatefulWidget {
@@ -105,7 +105,14 @@ class _SettingState extends State<Setting> {
                             ),
                             padding: MaterialStatePropertyAll(
                                 EdgeInsets.fromLTRB(40, 20, 40, 20))),
-                        onPressed: () {},
+                        onPressed: () {
+                            Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                       changeinfo()));
+                        },
                         child: const Text(
                           "Change Info",
                           style: TextStyle(fontWeight: FontWeight.bold),

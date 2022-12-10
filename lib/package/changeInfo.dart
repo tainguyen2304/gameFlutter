@@ -17,14 +17,14 @@ List<Avatar> avatarImages = [
   Avatar(image: "images/avatar6.png", id: "6"),
 ];
 
-class ChooseAvatar extends StatefulWidget {
-  const ChooseAvatar({Key? key}) : super(key: key);
+class changeinfo extends StatefulWidget {
+  const changeinfo({Key? key}) : super(key: key);
 
   @override
   _ChooseAvatarState createState() => _ChooseAvatarState();
 }
 
-class _ChooseAvatarState extends State<ChooseAvatar> {
+class _ChooseAvatarState extends State<changeinfo> {
   Future createData(String name, String age, String avatar) async {
     setState(() {
       if (selectedIndex.isEmpty) {
@@ -42,43 +42,28 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
       }
     });
     try {
-      if (sologanis == false && useis == false && avataris == false) {
-        var a = FirebaseAuth.instance.currentUser!;
-        final data = FirebaseFirestore.instance.collection('User').doc();
-        var id = data.id;
-        final json = Usera(
-            id: id, name: name, avatar: avatar, age: age, email: a.email!);
-
-        data.set(json.toJson());
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePage(
-                    nickName: nickName.text,
-                    avatar: avatar,
-                    age: txtage.text)));
+      for (int i = 0; i < lsUsers.length; i++) {
+        if (lsUsers[i].email == FirebaseAuth.instance.currentUser!.email) {
+          FirebaseFirestore.instance
+              .collection("User")
+              .doc(lsUsers[i].id)
+              .update({'name': name, 'age': age, 'avatar': avatar});
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      HomePage(nickName: name, age: age, avatar: avatar)));
+        }
       }
     } on FirebaseAuthException catch (e) {}
     ;
-  }
-
-  Future kiemtra() async {
-    List<String> docID = [];
-
-    await FirebaseFirestore.instance
-        .collection("User")
-        .get()
-        .then((value) => value.docs.forEach((element) {
-              docID.add(element.reference.id);
-            }));
   }
 
   var selectedIndex = "";
   TextEditingController nickName = TextEditingController();
   TextEditingController txtage = TextEditingController();
   String avatar = "";
-
+  List<Usera> lsUsers = [];
   var avatarerr = "Không được để trống";
   var avataris = false;
   var usererr = "Không được để trống";
@@ -94,7 +79,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final data = snapshot.data!.docs;
-            List<Usera> lsUsers = [];
+
             for (var row in data) {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
@@ -104,15 +89,6 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                   avatar: r['avatar'],
                   age: r['age']);
               lsUsers.add(a);
-            }
-            for (int i = 0; i < lsUsers.length; i++) {
-              if (lsUsers[i].email ==
-                  FirebaseAuth.instance.currentUser!.email) {
-                return HomePage(
-                    nickName: lsUsers[i].name,
-                    avatar: lsUsers[i].avatar,
-                    age: lsUsers[i].age);
-              }
             }
           }
 
@@ -206,7 +182,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                                     child: const Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Text(
-                                        "Done",
+                                        "Update",
                                         style: TextStyle(
                                           color:
                                               Color.fromARGB(255, 61, 46, 38),
@@ -231,12 +207,12 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      FirebaseAuth.instance.signOut();
+                                      Navigator.pop(context);
                                     },
                                     child: const Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Text(
-                                        "Đăng xuất",
+                                        "Back",
                                         style: TextStyle(
                                           color:
                                               Color.fromARGB(255, 61, 46, 38),
