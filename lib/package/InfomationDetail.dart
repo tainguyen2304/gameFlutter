@@ -4,12 +4,16 @@ import './HomePage.dart';
 class InfoDetail extends StatefulWidget {
   InfoDetail(
       {super.key,
+      required this.score,
+      required this.level,
       required this.nickName,
       required this.avatar,
       required this.age});
   final String nickName;
   final String avatar;
   final String age;
+  final String level;
+  final String score;
 
   @override
   State<InfoDetail> createState() => _InfoDetailState();
@@ -60,7 +64,7 @@ class _InfoDetailState extends State<InfoDetail> {
                 decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(color: Colors.black))),
                 child: Text(
-                  'Level: 2',
+                  'Your level:  ${widget.level}',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
@@ -106,10 +110,10 @@ class _InfoDetailState extends State<InfoDetail> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 10.0, 0),
                                     child: Text(
-                                      '1200',
+                                      widget.score.toString(),
                                       style: TextStyle(
                                         fontSize: 20,
                                       ),
@@ -191,7 +195,9 @@ class _InfoDetailState extends State<InfoDetail> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => HomePage(
+                                  score: widget.score.toString(),
                                   nickName: widget.nickName,
+                                  level: int.parse(widget.level),
                                   avatar: widget.avatar,
                                   age: widget.age)),
                         );

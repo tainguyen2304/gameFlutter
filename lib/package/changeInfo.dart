@@ -18,8 +18,15 @@ List<Avatar> avatarImages = [
 ];
 
 class changeinfo extends StatefulWidget {
-  const changeinfo({Key? key}) : super(key: key);
+  const changeinfo(
+      {Key? key, this.nickName, this.avatar, this.age, this.level, this.score})
+      : super(key: key);
 
+  final String? nickName;
+  final String? avatar;
+  final String? age;
+  final int? level;
+  final String? score;
   @override
   _ChooseAvatarState createState() => _ChooseAvatarState();
 }
@@ -66,8 +73,9 @@ class _ChooseAvatarState extends State<changeinfo> {
   }
 
   var selectedIndex = "";
-  TextEditingController nickName = TextEditingController();
-  TextEditingController txtage = TextEditingController();
+ late TextEditingController nickName = TextEditingController(text:widget.nickName.toString());
+
+ late TextEditingController txtage =  TextEditingController(text:widget.age.toString());
   String avatar = "";
   List<Usera> lsUsers = [];
   var avatarerr = "Không được để trống";
@@ -89,6 +97,8 @@ class _ChooseAvatarState extends State<changeinfo> {
             for (var row in data) {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
+                  score: r['score'],
+                  Level: r['Level'],
                   id: r['id'],
                   email: r['email'],
                   name: r['name'],
