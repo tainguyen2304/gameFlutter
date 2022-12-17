@@ -18,14 +18,10 @@ List<Avatar> avatarImages = [
 ];
 
 class changeinfo extends StatefulWidget {
-  const changeinfo({Key? key,this.nickName,
-      this.avatar,
-      this.age,
-      this.level,
-      this.score}) : super(key: key);
+  const changeinfo(
+      {Key? key, this.nickName, this.avatar, this.age, this.level, this.score})
+      : super(key: key);
 
-
-     
   final String? nickName;
   final String? avatar;
   final String? age;
@@ -77,9 +73,9 @@ class _ChooseAvatarState extends State<changeinfo> {
   }
 
   var selectedIndex = "";
-  TextEditingController nickName = TextEditingController();
- 
-  TextEditingController txtage = TextEditingController();
+ late TextEditingController nickName = TextEditingController(text:widget.nickName.toString());
+
+ late TextEditingController txtage =  TextEditingController(text:widget.age.toString());
   String avatar = "";
   List<Usera> lsUsers = [];
   var avatarerr = "Không được để trống";
@@ -163,13 +159,10 @@ class _ChooseAvatarState extends State<changeinfo> {
                             Padding(
                               padding: const EdgeInsets.all(4),
                               child: TextField(
-                                
                                 controller: txtage,
-                                
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 12),
                                 decoration: InputDecoration(
-                                 
                                     errorText: sologanis ? sologanerrr : null,
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
