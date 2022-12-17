@@ -5,7 +5,17 @@ import 'changeInfo.dart';
 import 'Login.dart';
 
 class Setting extends StatefulWidget {
-  const Setting({super.key});
+  const Setting({super.key, this.nickName,
+      this.avatar,
+      this.age,
+      this.level,
+      this.score});
+     
+  final String? nickName;
+  final String? avatar;
+  final String? age;
+  final int? level;
+  final String? score;
 
   @override
   State<Setting> createState() => _SettingState();
@@ -111,7 +121,11 @@ class _SettingState extends State<Setting> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                       changeinfo()));
+                                       changeinfo(    score: widget.score.toString(),
+                                      level: widget.level,
+                                      nickName: widget.nickName.toString(),
+                                      avatar: widget.avatar.toString(),
+                                      age: widget.age.toString(),)));
                         },
                         child: const Text(
                           "Change Info",

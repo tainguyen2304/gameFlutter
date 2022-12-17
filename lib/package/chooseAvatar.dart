@@ -60,7 +60,13 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
         final data = FirebaseFirestore.instance.collection('User').doc();
         var id = data.id;
         final json = Usera(
-            id: id, name: name, avatar: avatar, age: age, email: a.email!);
+            score: 0,
+            Level: 1,
+            id: id,
+            name: name,
+            avatar: avatar,
+            age: age,
+            email: a.email!);
 
         data.set(json.toJson());
         Navigator.of(context).popUntil((route) => route.isFirst);
@@ -68,7 +74,9 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
             context,
             MaterialPageRoute(
                 builder: (context) => HomePage(
+                    score: 0.toString(),
                     nickName: nickName.text,
+                    level: 1,
                     avatar: avatar,
                     age: txtage.text)));
       }
@@ -113,6 +121,8 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
             for (var row in data) {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
+                  score: r['score'],
+                  Level: r['Level'],
                   id: r['id'],
                   email: r['email'],
                   name: r['name'],
@@ -124,6 +134,8 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
               if (lsUsers[i].email ==
                   FirebaseAuth.instance.currentUser!.email) {
                 return HomePage(
+                    score: lsUsers[i].score.toString(),
+                    level: lsUsers[i].Level,
                     nickName: lsUsers[i].name,
                     avatar: lsUsers[i].avatar,
                     age: lsUsers[i].age);

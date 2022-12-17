@@ -18,8 +18,19 @@ List<Avatar> avatarImages = [
 ];
 
 class changeinfo extends StatefulWidget {
-  const changeinfo({Key? key}) : super(key: key);
+  const changeinfo({Key? key,this.nickName,
+      this.avatar,
+      this.age,
+      this.level,
+      this.score}) : super(key: key);
 
+
+     
+  final String? nickName;
+  final String? avatar;
+  final String? age;
+  final int? level;
+  final String? score;
   @override
   _ChooseAvatarState createState() => _ChooseAvatarState();
 }
@@ -67,6 +78,7 @@ class _ChooseAvatarState extends State<changeinfo> {
 
   var selectedIndex = "";
   TextEditingController nickName = TextEditingController();
+ 
   TextEditingController txtage = TextEditingController();
   String avatar = "";
   List<Usera> lsUsers = [];
@@ -89,6 +101,8 @@ class _ChooseAvatarState extends State<changeinfo> {
             for (var row in data) {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
+                  score: r['score'],
+                  Level: r['Level'],
                   id: r['id'],
                   email: r['email'],
                   name: r['name'],
@@ -149,10 +163,13 @@ class _ChooseAvatarState extends State<changeinfo> {
                             Padding(
                               padding: const EdgeInsets.all(4),
                               child: TextField(
+                                
                                 controller: txtage,
+                                
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 12),
                                 decoration: InputDecoration(
+                                 
                                     errorText: sologanis ? sologanerrr : null,
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
