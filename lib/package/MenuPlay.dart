@@ -6,16 +6,21 @@ import 'package:game/models/popmenu.dart';
 import 'package:game/package/choose_level_play_offline.dart';
 import 'package:game/package/choose_topic_screen.dart';
 import '../drawer/my_header_drawer.dart';
+import 'HomePage.dart';
 
 class MenuPlay extends StatefulWidget {
   MenuPlay(
       {super.key,
+      required this.score,
+      required this.level,
       required this.nickName,
       required this.avatar,
       required this.age});
   final String nickName;
+  final String score;
   final String avatar;
   final String age;
+  final int level;
 
   @override
   State<MenuPlay> createState() => _MenuPlayState();
@@ -48,8 +53,8 @@ class _MenuPlayState extends State<MenuPlay> {
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        const Text(
-                          'LV.0',
+                        Text(
+                          widget.level.toString(),
                           style: TextStyle(fontSize: 15),
                         )
                       ],
@@ -145,6 +150,29 @@ class _MenuPlayState extends State<MenuPlay> {
                       side: BorderSide(width: 2, color: Colors.black)),
                   onPressed: () {},
                   child: Text("Create Room")),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      backgroundColor: Colors.white,
+                      padding: const EdgeInsets.all(25),
+                      side: BorderSide(width: 2, color: Colors.black)),
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomePage(
+                              nickName: widget.nickName,
+                              score: widget.score,
+                              level: int.parse(widget.level.toString()),
+                              avatar: widget.avatar,
+                              age: widget.age)),
+                    );
+                  },
+                  child: Text("Back")),
             ),
           ],
         ),

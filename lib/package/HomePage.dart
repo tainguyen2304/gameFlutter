@@ -5,10 +5,18 @@ import 'package:game/package/drawerMenu.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key, this.nickName, this.avatar, this.age});
+  HomePage(
+      {super.key,
+      this.nickName,
+      this.avatar,
+      this.age,
+      this.level,
+      this.score});
   final String? nickName;
   final String? avatar;
   final String? age;
+  final int? level;
+  final String? score;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -40,8 +48,8 @@ class _HomePageState extends State<HomePage> {
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          const Text(
-                            'LV.0',
+                          Text(
+                            widget.level.toString(),
                             style: TextStyle(fontSize: 15),
                           )
                         ],
@@ -53,7 +61,12 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Setting()),
+                      MaterialPageRoute(builder: (context) =>  Setting( 
+                        score: widget.score.toString(),
+                                      level: widget.level,
+                                      nickName: widget.nickName.toString(),
+                                      avatar: widget.avatar.toString(),
+                                      age: widget.age.toString(),)),
                     );
                   },
                   icon: Image.asset("images/settings.png"),
@@ -95,6 +108,8 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => InfoDetail(
+                                      score: widget.score.toString(),
+                                      level: widget.level.toString(),
                                       nickName: widget.nickName.toString(),
                                       avatar: widget.avatar.toString(),
                                       age: widget.age.toString(),
@@ -118,6 +133,8 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MenuPlay(
+                                  score: widget.score.toString(),
+                                      level: int.parse(widget.level.toString()),
                                       nickName: widget.nickName.toString(),
                                       avatar: widget.avatar.toString(),
                                       age: widget.age.toString(),
