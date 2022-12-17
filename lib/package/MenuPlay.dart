@@ -8,7 +8,7 @@ import 'package:game/package/choose_topic_screen.dart';
 import '../drawer/my_header_drawer.dart';
 
 class MenuPlay extends StatefulWidget {
-  MenuPlay(
+  const MenuPlay(
       {super.key,
       required this.nickName,
       required this.avatar,
@@ -108,7 +108,10 @@ class _MenuPlayState extends State<MenuPlay> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ChooseTopic()),
+                          builder: (context) => ChooseTopic(
+                              nickName: widget.nickName,
+                              avatar: widget.avatar,
+                              age: widget.age)),
                     );
                   },
                   child: Text("Player Offline")),

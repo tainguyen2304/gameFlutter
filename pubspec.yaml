@@ -123,7 +123,7 @@ flutter:
     - images/idea.png
     - images/day.png
     - images/refresh.png
-
+    - assets/icons/clock.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

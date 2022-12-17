@@ -1,12 +1,18 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/choose_topic_screen.dart';
 import 'package:game/package/playOffline/quizz_screen.dart';
 
 class Round extends StatefulWidget {
-  const Round({super.key, this.topic});
+  const Round(
+      {super.key,
+      required this.nickName,
+      required this.avatar,
+      this.topic,
+      required this.age});
+  final String nickName;
+  final String avatar;
+  final String age;
   final String? topic;
 
   @override
@@ -18,9 +24,22 @@ class _RoundState extends State<Round> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(0, 130, 129, 129),
-          elevation: 0,
-        ),
+            backgroundColor: const Color.fromARGB(0, 130, 129, 129),
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChooseTopic(
+                            nickName: widget.nickName,
+                            avatar: widget.avatar,
+                            age: widget.age)));
+              },
+              icon: const Icon(Icons.arrow_back),
+              iconSize: 30,
+            )),
         body: ListView(
           children: [
             Container(
@@ -40,35 +59,6 @@ class _RoundState extends State<Round> {
                     if (streamSnapshot.hasData) {
                       return Column(
                         children: [
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   children: [
-                          //     ElevatedButton(
-                          //       onPressed: () {
-                          //         Navigator.pop(context);
-                          //         Navigator.push(
-                          //             context,
-                          //             MaterialPageRoute(
-                          //                 builder: (context) =>
-                          //                     const ChooseTopic()));
-                          //       },
-                          //       child: Container(
-                          //         decoration: BoxDecoration(
-                          //           // color: Colors.white,
-                          //           borderRadius: BorderRadius.circular(60.0),
-                          //           border: Border.all(style: BorderStyle.none),
-                          //         ),
-                          //         child: const Text(
-                          //           '<',
-                          //           style: TextStyle(
-                          //               fontSize: 30,
-                          //               color: Colors.black,
-                          //               fontWeight: FontWeight.bold),
-                          //         ),
-                          //       ),
-                          //     )
-                          //   ],
-                          // ),
                           Stack(
                             children: [
                               Image.asset(
@@ -118,8 +108,12 @@ class _RoundState extends State<Round> {
                                                   builder: (context) =>
                                                       PlayOffline(
                                                           topic: widget.topic,
-                                                          level: levelItem[
-                                                              'name'])));
+                                                          level:
+                                                              levelItem['name'],
+                                                          nickName:
+                                                              widget.nickName,
+                                                          avatar: widget.avatar,
+                                                          age: widget.age)));
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(

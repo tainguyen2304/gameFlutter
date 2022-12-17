@@ -25,7 +25,7 @@ class QuestionCard extends StatelessWidget {
           Text(question.content, style: Theme.of(context).textTheme.headline6
               // .copyWith(color: kBlackColor),
               ),
-          SizedBox(height: kDefaultPadding / 2),
+          const SizedBox(height: kDefaultPadding / 2),
           ...List.generate(
             question.plans.length,
             (index) => Option(

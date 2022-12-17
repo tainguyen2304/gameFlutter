@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:game/package/Login.dart';
-import 'package:http/http.dart';
 import '../models/avatar_models.dart';
 import './HomePage.dart';
 import 'package:game/data/user.dart';
@@ -47,7 +44,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
         if (lsUsers[i].name == name) check = 1;
       }
       if (check == 1) {
-        final snackBar = SnackBar(
+        final snackBar = const SnackBar(
           content: Text('Đâ tồn tại name này'),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -222,37 +219,6 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                                         padding: EdgeInsets.all(10),
                                         child: Text(
                                           "Done",
-                                          style: TextStyle(
-                                            color:
-                                                Color.fromARGB(255, 61, 46, 38),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.zero,
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll<Color>(
-                                          const Color.fromARGB(
-                                                  255, 247, 224, 224)
-                                              .withOpacity(0.8),
-                                        ),
-                                        shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0)),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        FirebaseAuth.instance.signOut();
-                                      },
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Text(
-                                          "Đăng xuất",
                                           style: TextStyle(
                                             color:
                                                 Color.fromARGB(255, 61, 46, 38),

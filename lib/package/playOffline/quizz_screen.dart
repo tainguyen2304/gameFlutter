@@ -5,11 +5,21 @@ import 'package:game/controllers/question_controller.dart';
 import 'package:game/models/question.dart';
 import 'package:game/package/playOffline/components/progress_bar.dart';
 import 'package:game/package/playOffline/components/question_card.dart';
+import 'package:game/package/round_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class PlayOffline extends StatefulWidget {
-  const PlayOffline({super.key, this.topic, this.level});
+  const PlayOffline(
+      {super.key,
+      required this.nickName,
+      required this.avatar,
+      this.topic,
+      this.level,
+      required this.age});
+  final String nickName;
+  final String avatar;
+  final String age;
   final String? level;
   final String? topic;
 
@@ -38,6 +48,7 @@ class _PlayOfflineState extends State<PlayOffline> {
             backgroundColor: Colors.transparent,
             leading: IconButton(
               onPressed: () {
+                questionController.pause();
                 showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
@@ -55,7 +66,17 @@ class _PlayOfflineState extends State<PlayOffline> {
                         borderRadius: BorderRadius.circular(50)),
                     actions: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Round(
+                                      topic: widget.topic,
+                                      nickName: widget.nickName,
+                                      avatar: widget.avatar,
+                                      age: widget.age)));
+                        },
                         child: const Text(
                           'Exit',
                           style: TextStyle(
@@ -65,7 +86,10 @@ class _PlayOfflineState extends State<PlayOffline> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        onPressed: () {
+                          Navigator.pop(context, 'Cancel');
+                          questionController.playContinue();
+                        },
                         child: const Text(
                           'Cancel',
                           style: TextStyle(
@@ -83,17 +107,7 @@ class _PlayOfflineState extends State<PlayOffline> {
             ),
             actions: [
               Padding(
-                padding: EdgeInsets.all(10),
-                child: ElevatedButton(
-                    onPressed: questionController.pause,
-                    child: const Text(
-                      "Pause",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
                     onPressed: questionController.nextQuestion,
                     child: const Text(
@@ -105,31 +119,26 @@ class _PlayOfflineState extends State<PlayOffline> {
             ]),
         body: Stack(
           children: [
-            SvgPicture.asset("assets/icons/bg.svg", fit: BoxFit.fill),
+            SvgPicture.asset("images/h1.jpg", fit: BoxFit.fill),
             SafeArea(
-                // decoration: const BoxDecoration(
-                //   image: DecorationImage(
-                //       image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
-                // ),
                 child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('question')
-                  .where('topic', isEqualTo: widget.topic)
                   .where('level', isEqualTo: widget.level)
+                  .where('topic', isEqualTo: widget.topic)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                 if (streamSnapshot.hasData) {
-                  final data = streamSnapshot.data!.docs.reversed;
+                  final data = streamSnapshot.data!.docs;
                   List<Question> questions = data
                       .map(
                         (question) => Question(
-                          answer: question['answer'],
-                          content: question['content'],
-                          difficultId: question['difficultId'],
-                          level: question['level'],
-                          topic: question['topic'],
-                          plans: question['plans'],
-                        ),
+                            answer: question['answer'] ?? '',
+                            content: question['content'] ?? '',
+                            difficultId: question['difficultId'] ?? '',
+                            level: question['level'] ?? '',
+                            topic: question['topic'] ?? '',
+                            plans: question['plans'] ?? ''),
                       )
                       .toList();
                   return Column(
@@ -139,7 +148,7 @@ class _PlayOfflineState extends State<PlayOffline> {
                         'WHO IS STUPID ?',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 40,
+                            fontSize: 30,
                             fontStyle: FontStyle.italic,
                             fontFamily: 'MyFont'),
                       ),
@@ -164,19 +173,9 @@ class _PlayOfflineState extends State<PlayOffline> {
                               style: const TextStyle(
                                   fontSize: 20.0, fontWeight: FontWeight.bold),
                             ),
-                          )
+                          ),
                         ],
                       ),
-                      // LinearPercentIndicator(
-                      //   animation: true,
-                      //   lineHeight: 20.0,
-                      //   animationDuration: 5000,
-                      //   percent: 1,
-                      //   center: const Text("10s",
-                      //       style: TextStyle(
-                      //           color: Colors.white, fontSize: 16)),
-                      //   progressColor: Colors.black38,
-                      // ),
                       const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -189,15 +188,36 @@ class _PlayOfflineState extends State<PlayOffline> {
                           () => Text.rich(
                             TextSpan(
                               text:
-                                  "Question ${questionController.questionNumber.value}",
-                              style: Theme.of(context).textTheme.headline4,
+                                  "Life: ${questionController.numOfLife.value}",
+                              style: TextStyle(fontSize: 20),
                               // .copyWith(color: kSecondaryColor),
                               children: [
                                 TextSpan(
-                                    text: "/${questions.length}",
-                                    style: Theme.of(context).textTheme.headline5
-                                    // .copyWith(color: kSecondaryColor),
-                                    ),
+                                  text: "/3",
+                                  style: TextStyle(fontSize: 16),
+                                  // .copyWith(color: kSecondaryColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding),
+                        child: Obx(
+                          () => Text.rich(
+                            TextSpan(
+                              text:
+                                  "Question ${questionController.questionNumber.value}",
+                              style: TextStyle(fontSize: 20),
+                              // .copyWith(color: kSecondaryColor),
+                              children: [
+                                TextSpan(
+                                  text: "/${questions.length}",
+                                  style: TextStyle(fontSize: 16),
+                                  // .copyWith(color: kSecondaryColor),
+                                ),
                               ],
                             ),
                           ),
