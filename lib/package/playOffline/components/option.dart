@@ -23,10 +23,12 @@ class Option extends StatelessWidget {
         builder: (qnController) {
           Color getTheRightColor() {
             if (qnController.isAnswered) {
-              if (index == qnController.correctAns) {
+              if (index == qnController.selectedAns &&
+                  index == num.parse(qnController.correctAns)) {
                 return kGreenColor;
               } else if (index == qnController.selectedAns &&
-                  qnController.selectedAns != qnController.correctAns) {
+                  qnController.selectedAns !=
+                      num.parse(qnController.correctAns)) {
                 return kRedColor;
               }
             }
@@ -40,18 +42,21 @@ class Option extends StatelessWidget {
           return InkWell(
             onTap: press,
             child: Container(
+              width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(top: kDefaultPadding),
               padding: const EdgeInsets.all(kDefaultPadding),
               decoration: BoxDecoration(
                 border: Border.all(color: getTheRightColor()),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Wrap(
                 children: [
-                  Text(
-                    "${index + 1}. $text",
-                    style: TextStyle(color: getTheRightColor(), fontSize: 16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 150,
+                    child: Text(
+                      "${index + 1}. $text",
+                      style: TextStyle(color: getTheRightColor(), fontSize: 16),
+                    ),
                   ),
                   Container(
                     height: 26,

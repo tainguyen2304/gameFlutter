@@ -1,18 +1,107 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:game/controllers/question_controller.dart';
 import 'package:game/models/question.dart';
+import 'package:game/package/Lose.dart';
+import 'package:game/package/WinPage.dart';
 import 'package:get/get.dart';
 import '../../../constants.dart';
 import 'option.dart';
 
-class QuestionCard extends StatelessWidget {
-  const QuestionCard({super.key, required this.question});
+class QuestionCard extends StatefulWidget {
+  const QuestionCard(
+      {super.key,
+      required this.question,
+      required this.nickName,
+      required this.avatar,
+      required this.score,
+      required this.levelUser,
+      required this.topic,
+      required this.level,
+      required this.age});
 
   final Question question;
+  final String nickName;
+  final String avatar;
+  final String age;
+  final String level;
+  final String topic;
+  final String score;
+  final int levelUser;
+  @override
+  State<QuestionCard> createState() => _QuestionCard();
+}
+
+class _QuestionCard extends State<QuestionCard> {
+  QuestionController _controller = Get.put(QuestionController());
+
+  void _press(question, index) {
+    _controller.checkAns(question, index);
+    if (_controller.numOfLife.value == 0) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LoseScreen(
+                score: widget.score.toString(),
+                levelUser: widget.levelUser,
+                topic: widget.topic,
+                level: widget.level,
+                nickName: widget.nickName,
+                avatar: widget.avatar,
+                age: widget.age)),
+      );
+    } else if (_controller.questionNumber.value == 10 &&
+        _controller.numOfLife.value > 0) {
+      // FirebaseFirestore.instance
+      //     .collection('offlineHistoryUser')
+      //     .get()
+      //     .then((QuerySnapshot querySnapshot) {
+      //   querySnapshot.docs.forEach((doc) {
+      //     if(doc[''])
+      //   });
+      // });
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => WinPage(
+                score: widget.score.toString(),
+                levelUser: widget.levelUser,
+                topic: widget.topic,
+                level: widget.level,
+                nickName: widget.nickName,
+                avatar: widget.avatar,
+                age: widget.age)),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (_controller.numOfLife.value == 0) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoseScreen(
+                  score: widget.score.toString(),
+                  levelUser: widget.levelUser,
+                  topic: widget.topic,
+                  level: widget.level,
+                  nickName: widget.nickName,
+                  avatar: widget.avatar,
+                  age: widget.age)),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    QuestionController _controller = Get.put(QuestionController());
     return Container(
       margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
       padding: EdgeInsets.all(kDefaultPadding),
@@ -22,16 +111,17 @@ class QuestionCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(question.content, style: Theme.of(context).textTheme.headline6
+          Text(widget.question.content,
+              style: Theme.of(context).textTheme.headline6
               // .copyWith(color: kBlackColor),
               ),
-          SizedBox(height: kDefaultPadding / 2),
+          const SizedBox(height: kDefaultPadding / 2),
           ...List.generate(
-            question.plans.length,
+            widget.question.plans.length,
             (index) => Option(
               index: index,
-              text: question.plans[index],
-              press: () => _controller.checkAns(question, index),
+              text: widget.question.plans[index],
+              press: () => _press(widget.question, index),
             ),
           ),
         ],

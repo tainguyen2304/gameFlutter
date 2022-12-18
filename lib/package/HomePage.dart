@@ -7,7 +7,7 @@ import 'package:game/package/drawerMenu.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage(
+  const HomePage(
       {super.key,
       this.nickName,
       this.avatar,

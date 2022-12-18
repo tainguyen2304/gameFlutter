@@ -14,7 +14,7 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 35,
+      height: 34,
       decoration: BoxDecoration(
         // border: Border.all(color: const Color(0xFF3F4768), width: 3),
         border: Border.all(
@@ -45,7 +45,10 @@ class ProgressBar extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("${(controller.animation.value * 60).round()} sec"),
+                      Text(
+                        "${(controller.animation.value * 30).round()} sec",
+                        style: TextStyle(color: Colors.white),
+                      ),
                       SvgPicture.asset("assets/icons/clock.svg"),
                     ],
                   ),

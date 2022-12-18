@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:game/controllers/question_controller.dart';
+import 'package:get/get.dart';
 
-class GiaoDien_chienthang extends StatefulWidget {
-  const GiaoDien_chienthang({super.key});
+class WinScreen extends StatefulWidget {
+  const WinScreen({super.key});
 
   @override
-  State<GiaoDien_chienthang> createState() => _GiaoDien_chienthangState();
+  State<WinScreen> createState() => _WinScreenState();
 }
 
-class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
+class _WinScreenState extends State<WinScreen> {
+  QuestionController questionController = Get.put(QuestionController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +32,14 @@ class _GiaoDien_chienthangState extends State<GiaoDien_chienthang> {
                     )),
                 Text(
                   "You Won",
+                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "life: ${questionController.numOfLife.value}",
+                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "score:${questionController.numOfCorrectAns} ",
                   style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                 ),
                 Row(

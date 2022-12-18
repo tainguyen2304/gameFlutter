@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/models/add.dart';
 import 'package:game/models/popmenu.dart';
-import 'package:game/package/choose_level_play_offline.dart';
 import 'package:game/package/choose_topic_screen.dart';
 import '../drawer/my_header_drawer.dart';
 import 'HomePage.dart';
 
 class MenuPlay extends StatefulWidget {
-  MenuPlay(
+  const MenuPlay(
       {super.key,
       required this.score,
       required this.level,
@@ -113,7 +112,13 @@ class _MenuPlayState extends State<MenuPlay> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ChooseTopic()),
+                          builder: (context) => ChooseTopic(
+                                nickName: widget.nickName,
+                                avatar: widget.avatar,
+                                age: widget.age,
+                                score: widget.score.toString(),
+                                level: widget.level,
+                              )),
                     );
                   },
                   child: Text("Player Offline")),
