@@ -47,22 +47,27 @@ class _ChooseAvatarState extends State<changeinfo> {
     });
     try {
       for (int i = 0; i < lsUsers.length; i++) {
-        if (lsUsers[i].name == name) {
-          final snackBar = SnackBar(
-            content: Text('Name này đã tồn tại'),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else if (lsUsers[i].email ==
-            FirebaseAuth.instance.currentUser!.email) {
-          FirebaseFirestore.instance
-              .collection("User")
-              .doc(lsUsers[i].id)
-              .update({'name': name, 'age': age, 'avatar': avatar});
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      HomePage(nickName: name, age: age, avatar: avatar)));
+        if (avataris == false && useis == false && sologanis == false) {
+          if (lsUsers[i].name == name) {
+            final snackBar = SnackBar(
+              content: Text('Name này đã tồn tại'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else if (lsUsers[i].email ==
+              FirebaseAuth.instance.currentUser!.email) {
+            FirebaseFirestore.instance
+                .collection("User")
+                .doc(lsUsers[i].id)
+                .update({'name': name, 'age': age, 'avatar': avatar});
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(
+                        level: lsUsers[i].Level,
+                        nickName: name,
+                        age: age,
+                        avatar: avatar)));
+          }
         }
       }
     } on FirebaseAuthException catch (e) {}
@@ -83,6 +88,41 @@ class _ChooseAvatarState extends State<changeinfo> {
   var sologanerrr = "Không được để trống";
   var useis = false;
   var sologanis = false;
+  Future updateAva() async {
+    setState(() {
+      if (selectedIndex.isEmpty) {
+        avataris = true;
+      } else
+        avataris = false;
+    });
+    if (avataris == false) {
+      try {
+        for (int i = 0; i < lsUsers.length; i++) {
+          if (lsUsers[i].name == nickName.text &&
+              lsUsers[i].email == FirebaseAuth.instance.currentUser!.email) {
+            FirebaseFirestore.instance
+                .collection("User")
+                .doc(lsUsers[i].id)
+                .update({
+              'name': nickName.text,
+              'age': txtage.text,
+              'avatar': avatar
+            });
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(
+                        level: lsUsers[i].Level,
+                        nickName: nickName.text,
+                        age: txtage.text,
+                        avatar: avatar)));
+          }
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -228,6 +268,41 @@ class _ChooseAvatarState extends State<changeinfo> {
                                       padding: EdgeInsets.all(10),
                                       child: Text(
                                         "Back",
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 61, 46, 38),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 120),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStatePropertyAll<Color>(
+                                        const Color.fromARGB(255, 247, 224, 224)
+                                            .withOpacity(0.8),
+                                      ),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0)),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      updateAva();
+                                    },
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        "Upadte avatar",
                                         style: TextStyle(
                                           color:
                                               Color.fromARGB(255, 61, 46, 38),

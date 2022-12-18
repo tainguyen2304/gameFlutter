@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HighScoreRank extends StatefulWidget {
   const HighScoreRank({super.key});
@@ -203,7 +204,9 @@ class _HighScoreRankState extends State<HighScoreRank> {
                                       const EdgeInsets.fromLTRB(40, 10, 40, 10),
                                   side: const BorderSide(
                                       width: 2, color: Colors.black)),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               child: const Text(
                                 "Back",
                                 style: TextStyle(color: Colors.white),

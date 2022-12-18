@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:game/package/HighScoreOff.dart';
+import 'package:game/package/HighScoreStart.dart';
 import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/package/drawerMenu.dart';
@@ -119,6 +121,31 @@ class _HomePageState extends State<HomePage> {
                           );
                         },
                         child: Text("Player Information")),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const StadiumBorder(),
+                            backgroundColor: Colors.white,
+                            padding: const EdgeInsets.all(25),
+                            side: BorderSide(width: 2, color: Colors.black)),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HighScoreStart(
+                                      score: widget.score.toString(),
+                                      level: widget.level,
+                                      nickName: widget.nickName.toString(),
+                                      avatar: widget.avatar.toString(),
+                                      age: widget.age.toString(),
+                                    )),
+                          );
+                        },
+                        child: Text("Bảng xếp hạng")),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
