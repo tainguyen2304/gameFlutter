@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:game/package/Login.dart';
-import 'package:http/http.dart';
 import '../models/avatar_models.dart';
 import './HomePage.dart';
 import 'package:game/data/user.dart';
@@ -73,9 +70,11 @@ class _ChooseAvatarState extends State<changeinfo> {
   }
 
   var selectedIndex = "";
- late TextEditingController nickName = TextEditingController(text:widget.nickName.toString());
+  late TextEditingController nickName =
+      TextEditingController(text: widget.nickName.toString());
 
- late TextEditingController txtage =  TextEditingController(text:widget.age.toString());
+  late TextEditingController txtage =
+      TextEditingController(text: widget.age.toString());
   String avatar = "";
   List<Usera> lsUsers = [];
   var avatarerr = "Không được để trống";

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:game/models/question.dart';
+import 'package:game/package/Lose.dart';
 import 'package:game/package/giao_dien_chienthang.dart';
 import 'package:get/get.dart';
 
@@ -45,7 +46,7 @@ class QuestionController extends GetxController
         // update like setState
         update();
       });
-    _questionNumber.value = 0;
+    _questionNumber.value = 1;
     _numOfLife.value = 3;
     _numOfCorrectAns = 0;
     _animationController.forward().whenComplete(nextQuestion);
@@ -88,6 +89,9 @@ class QuestionController extends GetxController
 
   void nextQuestion() {
     if (_questionNumber.value != 10) {
+      if (_isAnswered == false) {
+        _numOfLife.value = _numOfLife.value - 1;
+      }
       _isAnswered = false;
       _pageController.nextPage(
           duration: const Duration(milliseconds: 250), curve: Curves.ease);
@@ -98,9 +102,7 @@ class QuestionController extends GetxController
       // Then start it again
       // Once timer is finish go to the next qn
       _animationController.forward().whenComplete(nextQuestion);
-    } else {
-      Get.to(const WinScreen());
-    }
+    } else {}
   }
 
   void updateTheQnNum(int index) {

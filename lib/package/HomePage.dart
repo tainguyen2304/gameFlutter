@@ -5,7 +5,7 @@ import 'package:game/package/drawerMenu.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage(
+  const HomePage(
       {super.key,
       this.nickName,
       this.avatar,
@@ -61,12 +61,14 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>  Setting( 
-                        score: widget.score.toString(),
-                                      level: widget.level,
-                                      nickName: widget.nickName.toString(),
-                                      avatar: widget.avatar.toString(),
-                                      age: widget.age.toString(),)),
+                      MaterialPageRoute(
+                          builder: (context) => Setting(
+                                score: widget.score.toString(),
+                                level: widget.level,
+                                nickName: widget.nickName.toString(),
+                                avatar: widget.avatar.toString(),
+                                age: widget.age.toString(),
+                              )),
                     );
                   },
                   icon: Image.asset("images/settings.png"),
@@ -133,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MenuPlay(
-                                  score: widget.score.toString(),
+                                      score: widget.score.toString(),
                                       level: int.parse(widget.level.toString()),
                                       nickName: widget.nickName.toString(),
                                       avatar: widget.avatar.toString(),

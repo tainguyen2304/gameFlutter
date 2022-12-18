@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:game/package/HomePage.dart';
+import 'package:game/package/playOffline/quizz_screen.dart';
+import 'package:game/package/round_screen.dart';
 
 class WinPage extends StatefulWidget {
-  const WinPage({super.key});
+  const WinPage(
+      {super.key,
+      required this.nickName,
+      required this.avatar,
+      required this.score,
+      required this.levelUser,
+      required this.topic,
+      required this.level,
+      required this.age});
+  final String nickName;
+  final String avatar;
+  final String age;
+  final String level;
+  final String topic;
+  final String score;
+  final int levelUser;
 
   @override
   State<WinPage> createState() => _WinPageState();
@@ -103,7 +121,21 @@ class _WinPageState extends State<WinPage> {
                         backgroundColor: Colors.white,
                         padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
                         side: BorderSide(width: 2, color: Colors.black)),
-                    onPressed: () {},
+                    onPressed: () {
+                      var nextLevel = int.parse(widget.level) + 1;
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PlayOffline(
+                                  score: widget.score.toString(),
+                                  levelUser: widget.levelUser,
+                                  topic: widget.topic,
+                                  level: nextLevel.toString(),
+                                  nickName: widget.nickName,
+                                  avatar: widget.avatar,
+                                  age: widget.age)));
+                    },
                     child: const Text(
                       "Continue",
                       style: TextStyle(fontSize: 25),
@@ -118,9 +150,23 @@ class _WinPageState extends State<WinPage> {
                             padding: const EdgeInsets.all(25),
                             side: const BorderSide(
                                 width: 2, color: Colors.black)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage(
+                                      score: widget.score.toString(),
+                                      level: widget.levelUser,
+                                      nickName: widget.nickName.toString(),
+                                      avatar: widget.avatar.toString(),
+                                      age: widget.age.toString(),
+                                    )),
+                          );
+                        },
                         child: const Text(
-                          "PLay again",
+                          "Home",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )),
                     SizedBox(
@@ -132,7 +178,20 @@ class _WinPageState extends State<WinPage> {
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.all(25),
                             side: BorderSide(width: 2, color: Colors.black)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Round(
+                                      score: widget.score.toString(),
+                                      level: widget.levelUser,
+                                      topic: widget.topic,
+                                      nickName: widget.nickName,
+                                      avatar: widget.avatar,
+                                      age: widget.age)));
+                        },
                         child: const Text(
                           "Back",
                           style: TextStyle(fontWeight: FontWeight.bold),

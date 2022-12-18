@@ -8,12 +8,16 @@ class Round extends StatefulWidget {
       {super.key,
       required this.nickName,
       required this.avatar,
-      this.topic,
+      required this.score,
+      required this.level,
+      required this.topic,
       required this.age});
   final String nickName;
   final String avatar;
   final String age;
-  final String? topic;
+  final String topic;
+  final String score;
+  final int level;
 
   @override
   State<Round> createState() => _RoundState();
@@ -24,22 +28,35 @@ class _RoundState extends State<Round> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: const Color.fromARGB(0, 130, 129, 129),
-            elevation: 0,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChooseTopic(
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChooseTopic(
+                            score: widget.score.toString(),
+                            level: int.parse(widget.level.toString()),
                             nickName: widget.nickName,
                             avatar: widget.avatar,
-                            age: widget.age)));
-              },
-              icon: const Icon(Icons.arrow_back),
-              iconSize: 30,
-            )),
+                            age: widget.age,
+                          )));
+            },
+            icon: const Icon(Icons.arrow_back),
+            iconSize: 30,
+          ),
+          title: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              widget.topic,
+              style: const TextStyle(
+                  fontSize: 30,
+                  color: Colors.greenAccent,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
         body: ListView(
           children: [
             Container(
@@ -107,6 +124,11 @@ class _RoundState extends State<Round> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       PlayOffline(
+                                                          score: widget.score
+                                                              .toString(),
+                                                          levelUser: int.parse(
+                                                              widget.level
+                                                                  .toString()),
                                                           topic: widget.topic,
                                                           level:
                                                               levelItem['name'],
@@ -124,7 +146,7 @@ class _RoundState extends State<Round> {
                                                 style: BorderStyle.none),
                                           ),
                                           child: Text(
-                                            levelItem['name'],
+                                            'LV ${levelItem['name']}',
                                             style: const TextStyle(
                                                 fontSize: 30,
                                                 color: Colors.white),

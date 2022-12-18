@@ -11,10 +11,15 @@ class ChooseTopic extends StatefulWidget {
       {super.key,
       required this.nickName,
       required this.avatar,
+      required this.score,
+      required this.level,
       required this.age});
   final String nickName;
+  final String score;
   final String avatar;
   final String age;
+  final int level;
+
   @override
   _ChooseTopicState createState() => _ChooseTopicState();
 }
@@ -36,6 +41,8 @@ class _ChooseTopicState extends State<ChooseTopic> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => MenuPlay(
+                          score: widget.score.toString(),
+                          level: int.parse(widget.level.toString()),
                           nickName: widget.nickName,
                           avatar: widget.avatar,
                           age: widget.age)));
@@ -143,6 +150,11 @@ class _ChooseTopicState extends State<ChooseTopic> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) => Round(
+                                                      score: widget.score
+                                                          .toString(),
+                                                      level: int.parse(widget
+                                                          .level
+                                                          .toString()),
                                                       topic: topicItem['name'],
                                                       nickName: widget.nickName,
                                                       avatar: widget.avatar,

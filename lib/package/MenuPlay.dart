@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/models/add.dart';
 import 'package:game/models/popmenu.dart';
-import 'package:game/package/choose_level_play_offline.dart';
 import 'package:game/package/choose_topic_screen.dart';
 import '../drawer/my_header_drawer.dart';
 import 'HomePage.dart';
@@ -114,9 +113,12 @@ class _MenuPlayState extends State<MenuPlay> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ChooseTopic(
-                              nickName: widget.nickName,
-                              avatar: widget.avatar,
-                              age: widget.age)),
+                                nickName: widget.nickName,
+                                avatar: widget.avatar,
+                                age: widget.age,
+                                score: widget.score.toString(),
+                                level: widget.level,
+                              )),
                     );
                   },
                   child: Text("Player Offline")),

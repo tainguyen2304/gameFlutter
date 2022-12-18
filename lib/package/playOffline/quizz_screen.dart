@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:game/constants.dart';
 import 'package:game/controllers/question_controller.dart';
@@ -14,14 +15,18 @@ class PlayOffline extends StatefulWidget {
       {super.key,
       required this.nickName,
       required this.avatar,
-      this.topic,
-      this.level,
+      required this.score,
+      required this.levelUser,
+      required this.topic,
+      required this.level,
       required this.age});
   final String nickName;
   final String avatar;
   final String age;
-  final String? level;
-  final String? topic;
+  final String level;
+  final String topic;
+  final String score;
+  final int levelUser;
 
   @override
   State<PlayOffline> createState() => _PlayOfflineState();
@@ -37,7 +42,9 @@ class _PlayOfflineState extends State<PlayOffline> {
   @override
   void initState() {
     super.initState();
-    questionController.onInit();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      questionController.onInit();
+    });
   }
 
   @override
@@ -45,7 +52,6 @@ class _PlayOfflineState extends State<PlayOffline> {
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
-            backgroundColor: Colors.transparent,
             leading: IconButton(
               onPressed: () {
                 questionController.pause();
@@ -72,6 +78,9 @@ class _PlayOfflineState extends State<PlayOffline> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Round(
+                                      score: widget.score.toString(),
+                                      level: int.parse(
+                                          widget.levelUser.toString()),
                                       topic: widget.topic,
                                       nickName: widget.nickName,
                                       avatar: widget.avatar,
@@ -117,141 +126,147 @@ class _PlayOfflineState extends State<PlayOffline> {
                     )),
               ),
             ]),
-        body: Stack(
-          children: [
-            SvgPicture.asset("images/h1.jpg", fit: BoxFit.fill),
-            SafeArea(
-                child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('question')
-                  .where('level', isEqualTo: widget.level)
-                  .where('topic', isEqualTo: widget.topic)
-                  .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (streamSnapshot.hasData) {
-                  final data = streamSnapshot.data!.docs;
-                  List<Question> questions = data
-                      .map(
-                        (question) => Question(
-                            answer: question['answer'] ?? '',
-                            content: question['content'] ?? '',
-                            difficultId: question['difficultId'] ?? '',
-                            level: question['level'] ?? '',
-                            topic: question['topic'] ?? '',
-                            plans: question['plans'] ?? ''),
-                      )
-                      .toList();
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'WHO IS STUPID ?',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'MyFont'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // IconButton(
-                          //   onPressed: () {
-                          //     var showDialog2 = showDialog(
-                          //       context: context,
-                          //       builder: (context) => QuyenTroGiup(),
-                          //     );
-                          //   },
-                          //   icon: Image.asset("images/help.png"),
-                          //   iconSize: 80,
-                          // ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
-                            child: Text(
-                              '${widget.topic}:  ${widget.level}',
-                              style: const TextStyle(
-                                  fontSize: 20.0, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        child: ProgressBar(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: kDefaultPadding),
-                        child: Obx(
-                          () => Text.rich(
-                            TextSpan(
-                              text:
-                                  "Life: ${questionController.numOfLife.value}",
-                              style: TextStyle(fontSize: 20),
-                              // .copyWith(color: kSecondaryColor),
-                              children: [
-                                TextSpan(
-                                  text: "/3",
-                                  style: TextStyle(fontSize: 16),
-                                  // .copyWith(color: kSecondaryColor),
-                                ),
-                              ],
-                            ),
-                          ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/h2.jpg"), fit: BoxFit.cover),
+          ),
+          child: Stack(
+            children: [
+              SvgPicture.asset("images/h1.jpg", fit: BoxFit.fill),
+              SafeArea(
+                  child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('question')
+                    .where('level', isEqualTo: widget.level)
+                    .where('topic', isEqualTo: widget.topic)
+                    .snapshots(),
+                builder:
+                    (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    final data = streamSnapshot.data!.docs;
+                    List<Question> questions = data
+                        .map(
+                          (question) => Question(
+                              answer: question['answer'] ?? '',
+                              content: question['content'] ?? '',
+                              difficultId: question['difficultId'] ?? '',
+                              level: question['level'] ?? '',
+                              topic: question['topic'] ?? '',
+                              plans: question['plans'] ?? ''),
+                        )
+                        .toList();
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'WHO IS STUPID ?',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'MyFont'),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: kDefaultPadding),
-                        child: Obx(
-                          () => Text.rich(
-                            TextSpan(
-                              text:
-                                  "Question ${questionController.questionNumber.value}",
-                              style: TextStyle(fontSize: 20),
-                              // .copyWith(color: kSecondaryColor),
-                              children: [
-                                TextSpan(
-                                  text: "/${questions.length}",
-                                  style: TextStyle(fontSize: 16),
-                                  // .copyWith(color: kSecondaryColor),
-                                ),
-                              ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
+                              child: Text(
+                                '${widget.topic}:  LV${widget.level}',
+                                style: const TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(12),
+                          child: ProgressBar(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding),
+                          child: Obx(
+                            () => Text.rich(
+                              TextSpan(
+                                text:
+                                    "Life: ${questionController.numOfLife.value}",
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                                children: [
+                                  const TextSpan(
+                                    text: "/3",
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.white),
+                                    // .copyWith(color: kSecondaryColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const Divider(
-                        thickness: 1.5,
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        child: PageView.builder(
-                          // Block swipe to next qn
-                          // physics: NeverScrollableScrollPhysics(),
-                          controller: questionController.pageController,
-                          onPageChanged: questionController.updateTheQnNum,
-                          itemCount: questions.length,
-                          itemBuilder: (context, index) =>
-                              QuestionCard(question: questions[index]),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding),
+                          child: Obx(
+                            () => Text.rich(
+                              TextSpan(
+                                text:
+                                    "Question ${questionController.questionNumber.value}",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                                // .copyWith(color: kSecondaryColor),
+                                children: [
+                                  TextSpan(
+                                    text: "/${questions.length}",
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.white),
+                                    // .copyWith(color: kSecondaryColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        const Divider(
+                          thickness: 1.5,
+                        ),
+                        Expanded(
+                          child: PageView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              controller: questionController.pageController,
+                              onPageChanged: questionController.updateTheQnNum,
+                              itemCount: questions.length,
+                              itemBuilder: (context, index) =>
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: QuestionCard(
+                                        score: widget.score.toString(),
+                                        level: widget.level,
+                                        topic: widget.topic,
+                                        levelUser: widget.levelUser,
+                                        nickName: widget.nickName.toString(),
+                                        avatar: widget.avatar.toString(),
+                                        age: widget.age.toString(),
+                                        question: questions[index]),
+                                  )),
+                        ),
+                      ],
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            )),
-          ],
+                },
+              )),
+            ],
+          ),
         ));
   }
 
