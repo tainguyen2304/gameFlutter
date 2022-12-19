@@ -56,11 +56,13 @@ class _HighScoreStartState extends State<HighScoreStart> {
                 }
                 for (int i = 0; i < lsUsers.length - 1; i++) {
                   for (int j = i + 1; j < lsUsers.length; j++) {
-                    if (lsUsers[i].Level < lsUsers[j].Level) {
-                      // If arr[i] > arr[j], swap the value of arr[i] and arr[j]
-                      Usera temp = lsUsers[i];
-                      lsUsers[i] = lsUsers[j];
-                      lsUsers[j] = temp;
+                    if (lsUsers[i].score == lsUsers[j].score) {
+                      if (lsUsers[i].Level < lsUsers[j].Level) {
+                        // If arr[i] > arr[j], swap the value of arr[i] and arr[j]
+                        Usera temp = lsUsers[i];
+                        lsUsers[i] = lsUsers[j];
+                        lsUsers[j] = temp;
+                      }
                     }
                   }
                 }
