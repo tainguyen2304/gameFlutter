@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/HomePage.dart';
+import 'package:game/package/infoCaNhan.dart';
 
 import '../data/user.dart';
 
@@ -53,6 +54,16 @@ class _HighScoreStartState extends State<HighScoreStart> {
                     }
                   }
                 }
+                for (int i = 0; i < lsUsers.length - 1; i++) {
+                  for (int j = i + 1; j < lsUsers.length; j++) {
+                    if (lsUsers[i].Level < lsUsers[j].Level) {
+                      // If arr[i] > arr[j], swap the value of arr[i] and arr[j]
+                      Usera temp = lsUsers[i];
+                      lsUsers[i] = lsUsers[j];
+                      lsUsers[j] = temp;
+                    }
+                  }
+                }
               }
               return Container(
                 decoration: const BoxDecoration(
@@ -93,7 +104,26 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                             MainAxisAlignment.start,
                                         children: [
                                           IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        InfoCaNhan(
+                                                            score: lsUsers[0]
+                                                                .score
+                                                                .toString(),
+                                                            level: lsUsers[0]
+                                                                .Level
+                                                                .toString(),
+                                                            nickName:
+                                                                lsUsers[0].name,
+                                                            avatar: lsUsers[0]
+                                                                .avatar,
+                                                            age: lsUsers[0]
+                                                                .age)),
+                                              );
+                                            },
                                             icon:
                                                 Image.asset(lsUsers[0].avatar),
                                             iconSize: 50,
@@ -140,7 +170,26 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                             MainAxisAlignment.start,
                                         children: [
                                           IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        InfoCaNhan(
+                                                            score: lsUsers[1]
+                                                                .score
+                                                                .toString(),
+                                                            level: lsUsers[1]
+                                                                .Level
+                                                                .toString(),
+                                                            nickName:
+                                                                lsUsers[1].name,
+                                                            avatar: lsUsers[1]
+                                                                .avatar,
+                                                            age: lsUsers[1]
+                                                                .age)),
+                                              );
+                                            },
                                             icon:
                                                 Image.asset(lsUsers[1].avatar),
                                             iconSize: 50,
@@ -187,7 +236,26 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                             MainAxisAlignment.start,
                                         children: [
                                           IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        InfoCaNhan(
+                                                            score: lsUsers[2]
+                                                                .score
+                                                                .toString(),
+                                                            level: lsUsers[2]
+                                                                .Level
+                                                                .toString(),
+                                                            nickName:
+                                                                lsUsers[2].name,
+                                                            avatar: lsUsers[2]
+                                                                .avatar,
+                                                            age: lsUsers[2]
+                                                                .age)),
+                                              );
+                                            },
                                             icon:
                                                 Image.asset(lsUsers[2].avatar),
                                             iconSize: 50,
