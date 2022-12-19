@@ -47,7 +47,7 @@ class _WelcomeState extends State<Welcome> {
                     height: 25,
                   ),
                   Text(
-                    "WHO IS STUPID",
+                    "WHO IS STUPID ?",
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   )
                 ],

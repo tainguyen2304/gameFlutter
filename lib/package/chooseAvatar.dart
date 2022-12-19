@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:game/models/HistoryLevelOffline.dart';
 import '../models/avatar_models.dart';
 import './HomePage.dart';
 import 'package:game/data/user.dart';
@@ -55,17 +56,39 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
           check == 0) {
         var a = FirebaseAuth.instance.currentUser!;
         final data = FirebaseFirestore.instance.collection('User').doc();
-        var id = data.id;
+        var userId = data.id;
+
+        // thêm user
         final json = Usera(
             score: 0,
-            Level: 1,
-            id: id,
+            level: 1,
+            id: userId,
             name: name,
             avatar: avatar,
             age: age,
             email: a.email!);
-
         data.set(json.toJson());
+
+        // thêm history
+        FirebaseFirestore.instance
+            .collection('topic')
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+          querySnapshot.docs.forEach((doc) {
+            final data = FirebaseFirestore.instance
+                .collection('offlineHistoryUser')
+                .doc();
+            var historyId = data.id;
+            final json = OfflineUserHistory(
+              id: historyId,
+              userEmail: a.email!,
+              topic: doc["name"],
+              level: '1',
+            );
+            data.set(json.toJson());
+          });
+        });
+
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.push(
             context,
@@ -119,7 +142,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
                   score: r['score'],
-                  Level: r['Level'],
+                  level: r['Level'],
                   id: r['id'],
                   email: r['email'],
                   name: r['name'],
@@ -130,9 +153,11 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
             for (int i = 0; i < lsUsers.length; i++) {
               if (lsUsers[i].email ==
                   FirebaseAuth.instance.currentUser!.email) {
+                var level = lsUsers[i].level / 10;
+
                 return HomePage(
                     score: lsUsers[i].score.toString(),
-                    level: lsUsers[i].Level,
+                    level: level.truncate(),
                     nickName: lsUsers[i].name,
                     avatar: lsUsers[i].avatar,
                     age: lsUsers[i].age);

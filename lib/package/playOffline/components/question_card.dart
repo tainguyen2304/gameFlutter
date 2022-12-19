@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:game/controllers/question_controller.dart';
@@ -35,10 +38,23 @@ class QuestionCard extends StatefulWidget {
 
 class _QuestionCard extends State<QuestionCard> {
   QuestionController _controller = Get.put(QuestionController());
+  var historyQuery =
+      FirebaseFirestore.instance.collection('offlineHistoryUser');
+  var userQuery = FirebaseFirestore.instance.collection('User');
+  var currentLevel = '';
+  var currentUser = FirebaseAuth.instance.currentUser!;
 
   void _press(question, index) {
     _controller.checkAns(question, index);
     if (_controller.numOfLife.value == 0) {
+      userQuery.get().then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc['email'] == currentUser.email) {
+            int exp = doc['Level'] + 5;
+            userQuery.doc(doc['id']).update({'Level': exp});
+          }
+        }
+      });
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.push(
         context,
@@ -54,14 +70,34 @@ class _QuestionCard extends State<QuestionCard> {
       );
     } else if (_controller.questionNumber.value == 10 &&
         _controller.numOfLife.value > 0) {
-      // FirebaseFirestore.instance
-      //     .collection('offlineHistoryUser')
-      //     .get()
-      //     .then((QuerySnapshot querySnapshot) {
-      //   querySnapshot.docs.forEach((doc) {
-      //     if(doc[''])
-      //   });
-      // });
+      // lấy ra user hiện tại
+
+      // khi thắng, cộng 3 điểm vào score của user
+      userQuery.get().then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc['email'] == currentUser.email) {
+            int exp = doc['Level'] + 5;
+            int score = doc['score'] + 3;
+            userQuery.doc(doc['id']).update({'score': score, 'Level': exp});
+          }
+        }
+      });
+
+      // khi thắng, ghi lại lịch sử
+      if (currentLevel == widget.level) {
+        historyQuery.get().then((QuerySnapshot querySnapshot) {
+          for (var docHistory in querySnapshot.docs) {
+            if (docHistory['userEmail'] == currentUser.email &&
+                docHistory['topic'] == widget.topic) {
+              var level = int.parse(currentLevel) + 1;
+              historyQuery.doc(docHistory['id']).update({
+                'level': level.toString(),
+              });
+            }
+          }
+        });
+      }
+
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.push(
         context,
@@ -97,14 +133,27 @@ class _QuestionCard extends State<QuestionCard> {
                   age: widget.age)),
         );
       }
+      FirebaseFirestore.instance
+          .collection('offlineHistoryUser')
+          .where('userEmail', isEqualTo: currentUser.email)
+          .where('topic', isEqualTo: widget.topic)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          setState(() {
+            currentLevel = doc['level'];
+          });
+        }
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      padding: EdgeInsets.all(kDefaultPadding),
+      height: MediaQuery.of(context).size.height,
+      margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+      padding: const EdgeInsets.all(kDefaultPadding),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),

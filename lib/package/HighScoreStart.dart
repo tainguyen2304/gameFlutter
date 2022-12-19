@@ -27,17 +27,17 @@ class _HighScoreStartState extends State<HighScoreStart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection("User").snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final data = snapshot.data!.docs;
+          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            if (streamSnapshot.hasData) {
+              final data = streamSnapshot.data!.docs;
 
               for (var row in data) {
                 final r = row.data() as Map<String, dynamic>;
                 var a = Usera(
                     score: r['score'],
-                    Level: r['Level'],
+                    level: r['Level'],
                     id: r['id'],
                     email: r['email'],
                     name: r['name'],
@@ -57,7 +57,7 @@ class _HighScoreStartState extends State<HighScoreStart> {
                 for (int i = 0; i < lsUsers.length - 1; i++) {
                   for (int j = i + 1; j < lsUsers.length; j++) {
                     if (lsUsers[i].score == lsUsers[j].score) {
-                      if (lsUsers[i].Level < lsUsers[j].Level) {
+                      if (lsUsers[i].level < lsUsers[j].level) {
                         // If arr[i] > arr[j], swap the value of arr[i] and arr[j]
                         Usera temp = lsUsers[i];
                         lsUsers[i] = lsUsers[j];
@@ -116,7 +116,7 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                                                 .score
                                                                 .toString(),
                                                             level: lsUsers[0]
-                                                                .Level
+                                                                .level
                                                                 .toString(),
                                                             nickName:
                                                                 lsUsers[0].name,
@@ -182,7 +182,7 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                                                 .score
                                                                 .toString(),
                                                             level: lsUsers[1]
-                                                                .Level
+                                                                .level
                                                                 .toString(),
                                                             nickName:
                                                                 lsUsers[1].name,
@@ -248,7 +248,7 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                                                 .score
                                                                 .toString(),
                                                             level: lsUsers[2]
-                                                                .Level
+                                                                .level
                                                                 .toString(),
                                                             nickName:
                                                                 lsUsers[2].name,

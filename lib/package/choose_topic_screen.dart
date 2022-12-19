@@ -65,15 +65,20 @@ class _ChooseTopicState extends State<ChooseTopic> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             widget.nickName,
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          const Text(
-                            'LV.0',
-                            style: TextStyle(fontSize: 15),
+                          Text(
+                            'LV: ${widget.level}',
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                          Text(
+                            ' ${widget.age}',
+                            style: const TextStyle(fontSize: 15),
                           )
                         ],
                       ),
