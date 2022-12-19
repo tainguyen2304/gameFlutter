@@ -41,10 +41,20 @@ class _QuestionCard extends State<QuestionCard> {
   var historyQuery =
       FirebaseFirestore.instance.collection('offlineHistoryUser');
   var userQuery = FirebaseFirestore.instance.collection('User');
+  var currentLevel = '';
+  var currentUser = FirebaseAuth.instance.currentUser!;
 
   void _press(question, index) {
     _controller.checkAns(question, index);
     if (_controller.numOfLife.value == 0) {
+      userQuery.get().then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc['email'] == currentUser.email) {
+            int exp = doc['Level'] + 5;
+            userQuery.doc(doc['id']).update({'Level': exp});
+          }
+        }
+      });
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.push(
         context,
@@ -61,30 +71,32 @@ class _QuestionCard extends State<QuestionCard> {
     } else if (_controller.questionNumber.value == 10 &&
         _controller.numOfLife.value > 0) {
       // lấy ra user hiện tại
-      var currentUser = FirebaseAuth.instance.currentUser!;
 
       // khi thắng, cộng 3 điểm vào score của user
       userQuery.get().then((QuerySnapshot querySnapshot) {
         for (var doc in querySnapshot.docs) {
           if (doc['email'] == currentUser.email) {
+            int exp = doc['Level'] + 5;
             int score = doc['score'] + 3;
-            userQuery.doc(doc['id']).update({'score': score});
+            userQuery.doc(doc['id']).update({'score': score, 'Level': exp});
           }
         }
       });
 
       // khi thắng, ghi lại lịch sử
-      historyQuery.get().then((QuerySnapshot querySnapshot) {
-        for (var docHistory in querySnapshot.docs) {
-          if (docHistory['userEmail'] == currentUser.email &&
-              docHistory['topic'] == widget.topic) {
-            var level = int.parse(widget.level) + 1;
-            historyQuery.doc(docHistory['id']).update({
-              'level': level.toString(),
-            });
+      if (currentLevel == widget.level) {
+        historyQuery.get().then((QuerySnapshot querySnapshot) {
+          for (var docHistory in querySnapshot.docs) {
+            if (docHistory['userEmail'] == currentUser.email &&
+                docHistory['topic'] == widget.topic) {
+              var level = int.parse(currentLevel) + 1;
+              historyQuery.doc(docHistory['id']).update({
+                'level': level.toString(),
+              });
+            }
           }
-        }
-      });
+        });
+      }
 
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.push(
@@ -121,6 +133,18 @@ class _QuestionCard extends State<QuestionCard> {
                   age: widget.age)),
         );
       }
+      FirebaseFirestore.instance
+          .collection('offlineHistoryUser')
+          .where('userEmail', isEqualTo: currentUser.email)
+          .where('topic', isEqualTo: widget.topic)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          setState(() {
+            currentLevel = doc['level'];
+          });
+        }
+      });
     });
   }
 

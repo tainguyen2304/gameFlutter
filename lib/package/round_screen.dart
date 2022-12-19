@@ -189,7 +189,22 @@ class _RoundState extends State<Round> {
                                       //     50, 20, 50, 20),
                                       side: const BorderSide(
                                           width: 3, color: Colors.black)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .popUntil((route) => route.isFirst);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PlayOffline(
+                                                score: widget.score.toString(),
+                                                levelUser: int.parse(
+                                                    widget.level.toString()),
+                                                topic: widget.topic,
+                                                level: levelItem['name'],
+                                                nickName: widget.nickName,
+                                                avatar: widget.avatar,
+                                                age: widget.age)));
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       // color: Colors.white,

@@ -63,7 +63,7 @@ class _ChooseAvatarState extends State<changeinfo> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomePage(
-                        level: lsUsers[i].Level,
+                        level: lsUsers[i].level,
                         nickName: name,
                         age: age,
                         avatar: avatar)));
@@ -112,7 +112,7 @@ class _ChooseAvatarState extends State<changeinfo> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomePage(
-                        level: lsUsers[i].Level,
+                        level: lsUsers[i].level,
                         nickName: nickName.text,
                         age: txtage.text,
                         avatar: avatar)));
@@ -137,7 +137,7 @@ class _ChooseAvatarState extends State<changeinfo> {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
                   score: r['score'],
-                  Level: r['Level'],
+                  level: r['Level'],
                   id: r['id'],
                   email: r['email'],
                   name: r['name'],

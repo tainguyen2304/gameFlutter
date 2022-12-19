@@ -24,6 +24,7 @@ class InfoDetail extends StatefulWidget {
 
 class _InfoDetailState extends State<InfoDetail> {
   var score = 0;
+  var rank = '';
   var currentUser = FirebaseAuth.instance.currentUser!;
 
   @override
@@ -38,6 +39,7 @@ class _InfoDetailState extends State<InfoDetail> {
           if (doc['email'] == currentUser.email) {
             setState(() {
               score = doc['score'];
+              rank = doc['rank'];
             });
           }
         }
@@ -172,11 +174,11 @@ class _InfoDetailState extends State<InfoDetail> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 10.0, 0),
                                     child: Text(
-                                      'Vàng',
-                                      style: TextStyle(
+                                      rank,
+                                      style: const TextStyle(
                                         fontSize: 20,
                                       ),
                                     ),

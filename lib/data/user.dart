@@ -5,18 +5,18 @@ class Usera {
   String age;
   String id;
   int score;
-  int Level;
+  int level;
 
   Usera(
       {required this.score,
-      required this.Level,
+      required this.level,
       required this.id,
       required this.email,
       required this.name,
       required this.avatar,
       required this.age});
   Map<String, dynamic> toJson() => {
-        'Level': Level,
+        'Level': level,
         'score': score,
         'id': id,
         'email': email,

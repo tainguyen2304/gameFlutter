@@ -61,7 +61,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
         // thêm user
         final json = Usera(
             score: 0,
-            Level: 1,
+            level: 1,
             id: userId,
             name: name,
             avatar: avatar,
@@ -142,7 +142,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
               final r = row.data() as Map<String, dynamic>;
               var a = Usera(
                   score: r['score'],
-                  Level: r['Level'],
+                  level: r['Level'],
                   id: r['id'],
                   email: r['email'],
                   name: r['name'],
@@ -153,9 +153,11 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
             for (int i = 0; i < lsUsers.length; i++) {
               if (lsUsers[i].email ==
                   FirebaseAuth.instance.currentUser!.email) {
+                var level = lsUsers[i].level / 10;
+
                 return HomePage(
                     score: lsUsers[i].score.toString(),
-                    level: lsUsers[i].Level,
+                    level: level.truncate(),
                     nickName: lsUsers[i].name,
                     avatar: lsUsers[i].avatar,
                     age: lsUsers[i].age);
