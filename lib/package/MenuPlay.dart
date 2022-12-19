@@ -34,18 +34,18 @@ class _MenuPlayState extends State<MenuPlay> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+            Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   Image.asset(
                     widget.avatar,
                     height: 60,
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           widget.nickName,
@@ -53,24 +53,26 @@ class _MenuPlayState extends State<MenuPlay> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          widget.level.toString(),
-                          style: TextStyle(fontSize: 15),
+                          'LV: ${widget.level}',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                        Text(
+                          ' ${widget.age}',
+                          style: const TextStyle(fontSize: 15),
                         )
                       ],
                     ),
                   )
-                ])),
-            Container(
-              child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Setting()),
-                  );
-                },
-                icon: Image.asset("images/settings.png"),
-                iconSize: 30,
-              ),
+                ]),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Setting()),
+                );
+              },
+              icon: Image.asset("images/settings.png"),
+              iconSize: 30,
             ),
           ],
         ),

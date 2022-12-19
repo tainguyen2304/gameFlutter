@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-
 class Usera {
   String email;
   String name;
@@ -13,14 +10,14 @@ class Usera {
   Usera(
       {required this.score,
       required this.Level,
-        required this.id,
+      required this.id,
       required this.email,
       required this.name,
       required this.avatar,
       required this.age});
   Map<String, dynamic> toJson() => {
-        'Level':Level,
-        'score':score,
+        'Level': Level,
+        'score': score,
         'id': id,
         'email': email,
         'name': name,

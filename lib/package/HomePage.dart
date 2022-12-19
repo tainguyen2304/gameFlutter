@@ -4,6 +4,7 @@ import 'package:game/package/HighScoreStart.dart';
 import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/Setting.dart';
 import 'package:game/package/drawerMenu.dart';
+import 'package:game/package/hoc/onHoverButton.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {

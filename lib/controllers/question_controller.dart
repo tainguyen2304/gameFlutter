@@ -49,6 +49,7 @@ class QuestionController extends GetxController
     _questionNumber.value = 1;
     _numOfLife.value = 3;
     _numOfCorrectAns = 0;
+    _correctAns = '';
     _animationController.forward().whenComplete(nextQuestion);
     _pageController = PageController();
   }

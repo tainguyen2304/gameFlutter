@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return ChooseAvatar();
+              return const ChooseAvatar();
             } else {
               return ListView(
                 children: [

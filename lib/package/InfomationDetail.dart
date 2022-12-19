@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import './HomePage.dart';
 
 class InfoDetail extends StatefulWidget {
@@ -20,6 +23,28 @@ class InfoDetail extends StatefulWidget {
 }
 
 class _InfoDetailState extends State<InfoDetail> {
+  var score = 0;
+  var currentUser = FirebaseAuth.instance.currentUser!;
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      FirebaseFirestore.instance
+          .collection('User')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc['email'] == currentUser.email) {
+            setState(() {
+              score = doc['score'];
+            });
+          }
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,8 +138,8 @@ class _InfoDetailState extends State<InfoDetail> {
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 10.0, 0),
                                     child: Text(
-                                      widget.score.toString(),
-                                      style: TextStyle(
+                                      '$score',
+                                      style: const TextStyle(
                                         fontSize: 20,
                                       ),
                                     ),
