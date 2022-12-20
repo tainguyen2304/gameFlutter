@@ -321,18 +321,7 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      HomePage(
-                                                        score: widget.score
-                                                            .toString(),
-                                                        level: widget.level,
-                                                        nickName: widget
-                                                            .nickName
-                                                            .toString(),
-                                                        avatar: widget.avatar
-                                                            .toString(),
-                                                        age: widget.age
-                                                            .toString(),
-                                                      )),
+                                                      HomePage()),
                                             );
                                           },
                                           child: Text("Back")),

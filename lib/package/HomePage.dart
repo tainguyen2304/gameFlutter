@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:game/package/HighScoreStart.dart';
 import 'package:game/package/MenuPlay.dart';
 import 'package:game/package/Setting.dart';
@@ -6,23 +9,41 @@ import 'package:game/package/drawerMenu.dart';
 import 'InfomationDetail.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage(
-      {super.key,
-      this.nickName,
-      this.avatar,
-      this.age,
-      this.level,
-      this.score});
-  final String? nickName;
-  final String? avatar;
-  final String? age;
-  final int? level;
-  final String? score;
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  var level = 0;
+  String nanmekk = "";
+  String avatar = "";
+  String age = "";
+  String score = "";
+  var currentUser = FirebaseAuth.instance.currentUser!;
+   @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      FirebaseFirestore.instance
+          .collection('User')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc['email'] == currentUser.email) {
+            setState(() {
+              score = doc['score'].toString();
+                    age = doc['age'];
+                    level = doc['Level'];
+                    avatar = doc['avatar'];
+                    nanmekk = doc['name'];
+            });
+          }
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                     Image.asset(
-                      widget.avatar.toString(),
+                      avatar.toString(),
                       height: 60,
                     ),
                     Padding(
@@ -45,12 +66,12 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           Text(
-                            widget.nickName.toString(),
+                            nanmekk.toString(),
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'LV ${widget.level.toString()}',
+                            'LV ${level.toString()}',
                             style: TextStyle(fontSize: 15),
                           )
                         ],
@@ -64,11 +85,11 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Setting(
-                                score: widget.score.toString(),
-                                level: widget.level,
-                                nickName: widget.nickName.toString(),
-                                avatar: widget.avatar.toString(),
-                                age: widget.age.toString(),
+                                score: score.toString(),
+                                level: level,
+                                nickName: nanmekk.toString(),
+                                avatar: avatar.toString(),
+                                age: age.toString(),
                               )),
                     );
                   },
@@ -80,112 +101,135 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         drawer: const ListFriend(),
-        body: ListView(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("images/h1.jpg"), fit: BoxFit.cover),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+        body: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection("User").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final data = snapshot.data!.docs;
+
+                for (var row in data) {
+                  final r = row.data() as Map<String, dynamic>;
+                  if (r['email'] == currentUser.email) {
+                    score = r['score'].toString();
+                    age = r['age'];
+                    level = r['Level'];
+                    avatar = r['avatar'];
+                    nanmekk = r['name'];
+                  }
+                }
+              }
+              return ListView(
                 children: [
-                  Image.asset("images/icon1.png"),
-                  const SizedBox(
-                    height: 2.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            backgroundColor: Colors.white,
-                            padding: const EdgeInsets.all(25),
-                            side: BorderSide(width: 2, color: Colors.black)),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .popUntil((route) => route.isFirst);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => InfoDetail(
-                                      score: widget.score.toString(),
-                                      level: widget.level.toString(),
-                                      nickName: widget.nickName.toString(),
-                                      avatar: widget.avatar.toString(),
-                                      age: widget.age.toString(),
-                                    )),
-                          );
-                        },
-                        child: Text("Player Information")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            backgroundColor: Colors.white,
-                            padding: const EdgeInsets.all(25),
-                            side: BorderSide(width: 2, color: Colors.black)),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .popUntil((route) => route.isFirst);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HighScoreStart(
-                                      score: widget.score.toString(),
-                                      level: widget.level,
-                                      nickName: widget.nickName.toString(),
-                                      avatar: widget.avatar.toString(),
-                                      age: widget.age.toString(),
-                                    )),
-                          );
-                        },
-                        child: Text("Bảng xếp hạng")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            backgroundColor: Colors.white,
-                            padding: const EdgeInsets.all(25),
-                            side: BorderSide(width: 2, color: Colors.black)),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .popUntil((route) => route.isFirst);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MenuPlay(
-                                      score: widget.score.toString(),
-                                      level: int.parse(widget.level.toString()),
-                                      nickName: widget.nickName.toString(),
-                                      avatar: widget.avatar.toString(),
-                                      age: widget.age.toString(),
-                                    )),
-                          );
-                        },
-                        child: Text("Play Game")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            backgroundColor: Colors.white,
-                            padding: const EdgeInsets.all(25),
-                            side: BorderSide(width: 2, color: Colors.black)),
-                        onPressed: () {},
-                        child: Text("Nạp tiền")),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("images/h1.jpg"),
+                          fit: BoxFit.cover),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset("images/icon1.png"),
+                        const SizedBox(
+                          height: 2.0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                  backgroundColor: Colors.white,
+                                  padding: const EdgeInsets.all(25),
+                                  side: BorderSide(
+                                      width: 2, color: Colors.black)),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => InfoDetail(
+                                            score: score.toString(),
+                                            level: level.toString(),
+                                            nickName: nanmekk.toString(),
+                                            avatar: avatar.toString(),
+                                            age: age.toString(),
+                                          )),
+                                );
+                              },
+                              child: Text("Player Information")),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                  backgroundColor: Colors.white,
+                                  padding: const EdgeInsets.all(25),
+                                  side: BorderSide(
+                                      width: 2, color: Colors.black)),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HighScoreStart(
+                                            score: score.toString(),
+                                            level: level,
+                                            nickName: nanmekk.toString(),
+                                            avatar: avatar.toString(),
+                                            age: age.toString(),
+                                          )),
+                                );
+                              },
+                              child: Text("Bảng xếp hạng")),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                  backgroundColor: Colors.white,
+                                  padding: const EdgeInsets.all(25),
+                                  side: BorderSide(
+                                      width: 2, color: Colors.black)),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MenuPlay(
+                                            score: score.toString(),
+                                            level: int.parse(level.toString()),
+                                            nickName: nanmekk.toString(),
+                                            avatar: avatar.toString(),
+                                            age: age.toString(),
+                                          )),
+                                );
+                              },
+                              child: Text("Play Game")),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                  backgroundColor: Colors.white,
+                                  padding: const EdgeInsets.all(25),
+                                  side: BorderSide(
+                                      width: 2, color: Colors.black)),
+                              onPressed: () {},
+                              child: Text("Nạp tiền")),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
-              ),
-            ),
-          ],
-        ));
+              );
+            }));
   }
 }

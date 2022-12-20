@@ -157,11 +157,7 @@ class _WinPageState extends State<WinPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HomePage(
-                                      score: widget.score.toString(),
-                                      level: widget.levelUser,
-                                      nickName: widget.nickName.toString(),
-                                      avatar: widget.avatar.toString(),
-                                      age: widget.age.toString(),
+                                   
                                     )),
                           );
                         },

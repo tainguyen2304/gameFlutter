@@ -115,11 +115,7 @@ class _LoseScreen extends State<LoseScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HomePage(
-                                      score: widget.score.toString(),
-                                      level: widget.levelUser,
-                                      nickName: widget.nickName.toString(),
-                                      avatar: widget.avatar.toString(),
-                                      age: widget.age.toString(),
+                                    
                                     )),
                           );
                         },
