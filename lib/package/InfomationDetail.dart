@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import '../data/user.dart';
 import './HomePage.dart';
 
 class InfoDetail extends StatefulWidget {
@@ -24,9 +25,9 @@ class InfoDetail extends StatefulWidget {
 
 class _InfoDetailState extends State<InfoDetail> {
   var score = 0;
-  var rank = '';
+  var hang = 0;
   var currentUser = FirebaseAuth.instance.currentUser!;
-
+  List<Usera> lsUsers = [];
   @override
   void initState() {
     super.initState();
@@ -39,8 +40,43 @@ class _InfoDetailState extends State<InfoDetail> {
           if (doc['email'] == currentUser.email) {
             setState(() {
               score = doc['score'];
-              rank = doc['rank'];
             });
+          }
+          var a = Usera(
+              score: doc['score'],
+              level: doc['Level'],
+              id: doc['id'],
+              email: doc['email'],
+              name: doc['name'],
+              avatar: doc['avatar'],
+              age: doc['age']);
+          lsUsers.add(a);
+        }
+        for (int i = 0; i < lsUsers.length - 1; i++) {
+          for (int j = i + 1; j < lsUsers.length; j++) {
+            if (lsUsers[i].score < lsUsers[j].score) {
+              // If arr[i] > arr[j], swap the value of arr[i] and arr[j]
+              Usera temp = lsUsers[i];
+              lsUsers[i] = lsUsers[j];
+              lsUsers[j] = temp;
+            }
+          }
+        }
+        for (int i = 0; i < lsUsers.length - 1; i++) {
+          for (int j = i + 1; j < lsUsers.length; j++) {
+            if (lsUsers[i].score == lsUsers[j].score) {
+              if (lsUsers[i].level < lsUsers[j].level) {
+                // If arr[i] > arr[j], swap the value of arr[i] and arr[j]
+                Usera temp = lsUsers[i];
+                lsUsers[i] = lsUsers[j];
+                lsUsers[j] = temp;
+              }
+            }
+          }
+        }
+        for (int i = 0; i < lsUsers.length; i++) {
+          if (lsUsers[i].email == currentUser.email) {
+            hang = i + 1;
           }
         }
       });
@@ -163,7 +199,7 @@ class _InfoDetailState extends State<InfoDetail> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const Text(
-                              'Rank',
+                              'Hạng',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -177,7 +213,7 @@ class _InfoDetailState extends State<InfoDetail> {
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 10.0, 0),
                                     child: Text(
-                                      rank,
+                                      "Hạng $hang",
                                       style: const TextStyle(
                                         fontSize: 20,
                                       ),

@@ -112,6 +112,8 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         InfoCaNhan(
+                                                            email1: lsUsers[0]
+                                                                .email,
                                                             score: lsUsers[0]
                                                                 .score
                                                                 .toString(),
@@ -178,6 +180,8 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         InfoCaNhan(
+                                                            email1: lsUsers[1]
+                                                                .email,
                                                             score: lsUsers[1]
                                                                 .score
                                                                 .toString(),
@@ -244,6 +248,8 @@ class _HighScoreStartState extends State<HighScoreStart> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         InfoCaNhan(
+                                                            email1: lsUsers[2]
+                                                                .email,
                                                             score: lsUsers[2]
                                                                 .score
                                                                 .toString(),
