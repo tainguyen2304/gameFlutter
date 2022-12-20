@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import './HomePage.dart';
 
 class InfoCaNhan extends StatefulWidget {
@@ -20,6 +23,27 @@ class InfoCaNhan extends StatefulWidget {
 }
 
 class _InfoDetailState extends State<InfoCaNhan> {
+  var rank = '';
+  var currentUser = FirebaseAuth.instance.currentUser!;
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      FirebaseFirestore.instance
+          .collection('User')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc['email'] == currentUser.email) {
+            setState(() {
+              rank = doc['rank'];
+            });
+          }
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,10 +171,10 @@ class _InfoDetailState extends State<InfoCaNhan> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 10.0, 0),
                                     child: Text(
-                                      'Vàng',
+                                      rank,
                                       style: TextStyle(
                                         fontSize: 20,
                                       ),

@@ -220,13 +220,7 @@ class _InfoDetailState extends State<InfoDetail> {
                             .popUntil((route) => route.isFirst);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage(
-                                  score: widget.score.toString(),
-                                  nickName: widget.nickName,
-                                  level: int.parse(widget.level),
-                                  avatar: widget.avatar,
-                                  age: widget.age)),
+                          MaterialPageRoute(builder: (context) => HomePage()),
                         );
                       },
                       child: const Padding(

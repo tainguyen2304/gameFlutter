@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game/package/ChangePassword.dart';
@@ -5,12 +6,14 @@ import 'changeInfo.dart';
 import 'Login.dart';
 
 class Setting extends StatefulWidget {
-  const Setting({super.key, this.nickName,
+  const Setting(
+      {super.key,
+      this.nickName,
       this.avatar,
       this.age,
       this.level,
       this.score});
-     
+
   final String? nickName;
   final String? avatar;
   final String? age;
@@ -22,6 +25,7 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  final player = AudioPlayer();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,16 +120,17 @@ class _SettingState extends State<Setting> {
                             padding: MaterialStatePropertyAll(
                                 EdgeInsets.fromLTRB(40, 20, 40, 20))),
                         onPressed: () {
-                            Navigator.pop(context);
+                          Navigator.pop(context);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                       changeinfo(    score: widget.score.toString(),
-                                      level: widget.level,
-                                      nickName: widget.nickName.toString(),
-                                      avatar: widget.avatar.toString(),
-                                      age: widget.age.toString(),)));
+                                  builder: (context) => changeinfo(
+                                        score: widget.score.toString(),
+                                        level: widget.level,
+                                        nickName: widget.nickName.toString(),
+                                        avatar: widget.avatar.toString(),
+                                        age: widget.age.toString(),
+                                      )));
                         },
                         child: const Text(
                           "Change Info",

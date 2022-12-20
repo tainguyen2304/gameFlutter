@@ -172,11 +172,7 @@ class _MenuPlayState extends State<MenuPlay> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => HomePage(
-                              nickName: widget.nickName,
-                              score: widget.score,
-                              level: int.parse(widget.level.toString()),
-                              avatar: widget.avatar,
-                              age: widget.age)),
+                             )),
                     );
                   },
                   child: Text("Back")),

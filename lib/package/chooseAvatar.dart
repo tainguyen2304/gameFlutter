@@ -94,11 +94,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
             context,
             MaterialPageRoute(
                 builder: (context) => HomePage(
-                    score: 0.toString(),
-                    nickName: nickName.text,
-                    level: 1,
-                    avatar: avatar,
-                    age: txtage.text)));
+                    )));
       }
     } on FirebaseAuthException catch (e) {
       print(e);
@@ -156,11 +152,7 @@ class _ChooseAvatarState extends State<ChooseAvatar> {
                 var level = lsUsers[i].level / 10;
 
                 return HomePage(
-                    score: lsUsers[i].score.toString(),
-                    level: level.truncate(),
-                    nickName: lsUsers[i].name,
-                    avatar: lsUsers[i].avatar,
-                    age: lsUsers[i].age);
+                  );
               }
             }
             return ListView(

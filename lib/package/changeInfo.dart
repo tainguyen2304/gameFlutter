@@ -63,10 +63,7 @@ class _ChooseAvatarState extends State<changeinfo> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomePage(
-                        level: lsUsers[i].level,
-                        nickName: name,
-                        age: age,
-                        avatar: avatar)));
+                    )));
           }
         }
       }
@@ -112,10 +109,7 @@ class _ChooseAvatarState extends State<changeinfo> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomePage(
-                        level: lsUsers[i].level,
-                        nickName: nickName.text,
-                        age: txtage.text,
-                        avatar: avatar)));
+                       )));
           }
         }
       } catch (e) {
