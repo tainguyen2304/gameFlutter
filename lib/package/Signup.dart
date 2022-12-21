@@ -12,10 +12,31 @@ class Singup extends StatefulWidget {
 }
 
 class _SingupState extends State<Singup> {
+  var passserr = "Không được để trống và tối thiểu 6 ký tự";
+  var emailerr = "Không được để trống và phải có ký tự @";
+  var passis = false;
+  var emailiss = false;
+  var ccc = "Không được để trống và phải giống với password";
+  var cccccciss = false;
   TextEditingController txtemail = new TextEditingController();
   TextEditingController txtpass = new TextEditingController();
   TextEditingController confimtxtpass = new TextEditingController();
   Future SignUp() async {
+    setState(() {
+      if (txtemail.text.isEmpty || !txtemail.toString().contains("@")) {
+        emailiss = true;
+      } else
+        emailiss = false;
+      if (txtpass.text.isEmpty || txtpass.text.length < 6) {
+        passis = true;
+      } else
+        passis = false;
+      if (confimtxtpass.text.isEmpty) {
+        cccccciss = true;
+      } else {
+        cccccciss = false;
+      }
+    });
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -23,48 +44,40 @@ class _SingupState extends State<Singup> {
               child: CircularProgressIndicator(),
             ));
     try {
-      if (!txtemail.toString().contains("@")) {
-        final snackBar = SnackBar(
-          content: Text('Sai định dạng email '),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } else if (confimtxtpass.text.trim() == txtpass.text.trim()) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: txtemail.text.trim(), password: txtpass.text.trim());
-        FirebaseAuth.instance.authStateChanges().listen(
-          (event) {
-            if (event != null) {
-              final snackBar = SnackBar(
-                content: Text('Thanh công '),
-              );
+      if (emailiss == false && passis == false && cccccciss == false) {
+        // if (!txtemail.toString().contains("@")) {
+        //   final snackBar = SnackBar(
+        //     content: Text('Sai định dạng email '),
+        //   );
+        //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // } else
+        if (confimtxtpass.text.trim() == txtpass.text.trim()) {
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: txtemail.text.trim(), password: txtpass.text.trim());
+          FirebaseAuth.instance.authStateChanges().listen(
+            (event) {
+              if (event != null) {
+                final snackBar = SnackBar(
+                  content: Text('Thanh công '),
+                );
 
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              FirebaseAuth.instance.signOut();
-              Navigator.of(context).pop();
-            }
-          },
-        );
-      } else if (txtpass.text != confimtxtpass.text) {
-        final snackBar = SnackBar(
-          content: Text('Mật khẩu xác thực không giống'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                FirebaseAuth.instance.signOut();
+                Navigator.of(context).pop();
+              }
+            },
+          );
+        } else if (txtpass.text != confimtxtpass.text) {
+          final snackBar = SnackBar(
+            content: Text('Mật khẩu xác thực không giống'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       }
     } on FirebaseAuthException catch (e) {
       print(e);
-      if ((txtemail.text == "" &&
-              txtpass.text == "" &&
-              confimtxtpass.text == "") ||
-          (txtemail.text == "") ||
-          (txtpass.text == "") ||
-          (confimtxtpass.text == "")) {
-        final snackBar = SnackBar(
-          content: Text('Không được để email, psw và xác thực password rỗng'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
       final snackBar = SnackBar(
-        content: Text("Email đã có người dùng"),
+        content: Text("email đã có người dùng"),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -92,6 +105,7 @@ class _SingupState extends State<Singup> {
                     controller: txtemail,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
+                      errorText: emailiss ? emailerr : null,
                       hintText: "Enter Email",
                       labelText: "Email:",
                       labelStyle: TextStyle(color: Colors.white),
@@ -107,6 +121,7 @@ class _SingupState extends State<Singup> {
                     style: TextStyle(color: Colors.white),
                     obscureText: true,
                     decoration: InputDecoration(
+                      errorText: passis ? passserr : null,
                       hintText: "Enter Password",
                       labelText: "Password:",
                       hintStyle:
@@ -122,6 +137,7 @@ class _SingupState extends State<Singup> {
                     style: TextStyle(color: Colors.white),
                     obscureText: true,
                     decoration: InputDecoration(
+                      errorText: cccccciss ? ccc : null,
                       hintText: "Enter Confirm Password ",
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 200, 199, 199)),
